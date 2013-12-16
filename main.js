@@ -7,6 +7,9 @@ $(window).load( function() {
 	canvas = document.getElementById( "screen" );
 	context = canvas.getContext( "2d" );
 	
+	context.font = '32pt Disco';
+	context.fillText( "", 0, 0 );
+
 	setInterval( update, 60 );
 } );
 
@@ -18,14 +21,24 @@ var SCREENS = {
 	title: 0,
 	loading: 1,
 	level: 2,
+	win: 3,
+	lose: 4,
+}
+
+var STATUS = { 
+	inprogress: 0,
+	won: 1, 
+	lost: 2,
 }
 
 var session = {
 	screen: SCREENS.title,
+	levelState: STATUS.inprogress,
 	level: null,
 	em: null,
 	sm: null,
 	scrollbox: null,
+	timer: 0,
 	loadLevel: function( name ) {
 		session.screen = SCREENS.loading;
 
@@ -48,6 +61,7 @@ var session = {
 				viewportW: canvas.width, viewportH: canvas.height } );
 
 			session.screen = SCREENS.level;
+			session.levelState = STATUS.inprogress,
 
 			console.log( session.level.spawnLayer );
 		} );
@@ -74,6 +88,20 @@ var session = {
 	},
 }
 
+var nextImg = new RegularImage( "img/next.png" );
+var againImg = new RegularImage( "img/again.png" );
+
+var nextButton = new Button( "next", 190, 100, 100, 50, function() {
+	levelIndex++;
+	levelIndex %= levels.length;
+	session.loadLevel( levelDir + "/" + levels[levelIndex] + ".json");
+});
+
+var againButton = new Button( "again", 190, 100, 100, 50, function() {
+	session.loadLevel( levelDir + "/" + levels[levelIndex] + ".json");	
+});
+
+
 // Main game loop
 function update() {
 	// Logic
@@ -91,12 +119,36 @@ function update() {
 			session.em.grab();
 			session.em.cull();
 
-			if ( !session.playerAlive() ) session.loadLevel( levelDir + "/" + levels[levelIndex] + ".json");
-			if ( session.enemiesDead() ) {
-				levelIndex++;
-				levelIndex %= levels.length;
-				session.loadLevel( levelDir + "/" + levels[levelIndex] + ".json");
-			} 
+			switch ( session.levelState ) {
+				case STATUS.inprogress:
+					if ( !session.playerAlive() ) {
+						session.levelState = STATUS.lost;
+						session.timer = 20;
+					}
+					if ( session.enemiesDead() ) {
+						session.levelState = STATUS.won;
+						session.timer = 20;
+					} 
+					break;
+				case STATUS.won:
+					session.timer--;
+					if ( session.timer <= 0 ) {
+						session.screen = SCREENS.win;
+					}
+					break;
+				case STATUS.lost:
+					session.timer--;
+					if ( session.timer <= 0 ) {
+						session.screen = SCREENS.lose;						
+					}
+					break;
+			}
+			break;
+		case SCREENS.win:
+			nextButton.update();
+			break;
+		case SCREENS.lose:
+			againButton.update();
 			break;
 	}
 
@@ -115,8 +167,27 @@ function update() {
 			level.drawForeground( context, session.scrollbox, 0 );
 			session.em.draw( context );		
 			break;
+		case SCREENS.win:
+			level.drawForeground( context, session.scrollbox, 0 );
+			session.em.draw( context );				
+			grayOverlay();
+			nextButton.draw( context );
+			break;
+		case SCREENS.lose:
+			level.drawForeground( context, session.scrollbox, 0 );
+			session.em.draw( context );				
+			grayOverlay();
+			againButton.draw( context );
+			break;			
 	}
 
 	mouseStateUpdater( canvas );
 	keyboardStateUpdater();
+}
+
+function grayOverlay() {
+	context.globalAlpha = 0.5;
+	context.fillStyle = "black";
+	context.fillRect( 0, 0, canvas.width, canvas.height );
+	context.globalAlpha = 1.0;
 }
