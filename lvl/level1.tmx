@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="16" height="8" tilewidth="20" tileheight="20">
+ <tileset firstgid="1" name="collision" tilewidth="20" tileheight="20">
+  <image source="collision.png" width="200" height="40"/>
+ </tileset>
+ <tileset firstgid="21" name="draw" tilewidth="20" tileheight="20">
+  <image source="draw.png" width="220" height="500"/>
+ </tileset>
+ <tileset firstgid="296" name="spawn" tilewidth="20" tileheight="20">
+  <image source="spawn.png" width="220" height="200"/>
+ </tileset>
+ <layer name="collision" width="16" height="8">
+  <data encoding="base64" compression="zlib">
+   eJxjYmBgYKIQkwtG9VNHPyUYAFqwAFk=
+  </data>
+ </layer>
+ <layer name="draw" width="16" height="8">
+  <data encoding="base64" compression="zlib">
+   eJyTZWBgkCMTywOxBhBrk4m1RvVTrN8YiE3IxKZADAAfnBUp
+  </data>
+ </layer>
+ <layer name="spawn" width="16" height="8">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgcQJNxoF1AGBjhcaPJEHA/NgAAkAEAkw==
+  </data>
+ </layer>
+</map>
