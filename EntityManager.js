@@ -78,6 +78,11 @@ EntityManager.prototype.collide = function( level ) {
 	});
 
 	for ( e in this.entities ) {
+		// If entity is the player, it should overlap with every other entity
+		if ( this.entities[e] instanceof Player ) {
+			overlapList( this.entities[e], this.entities );
+		}
+	
 		level.collide( this.entities[e] );
 
 		overlapList( this.entities[e], this.lasers );

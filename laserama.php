@@ -14,10 +14,12 @@
 		<script type="text/javascript" src="../juego.js/Ray.js"></script>
 		<script type="text/javascript" src="../juego.js/mouse.js"></script>
 
+		<script type="text/javascript" src="images.js"></script>
 		<script type="text/javascript" src="Level.js"></script>
 		<script type="text/javascript" src="EntityManager.js"></script>
 		<script type="text/javascript" src="Laser.js"></script>
 		<script type="text/javascript" src="LaserGun.js"></script>
+		<script type="text/javascript" src="Battery.js"></script>
 		<script type="text/javascript" src="Turret.js"></script>
 		<script type="text/javascript" src="Player.js"></script>
 		<script type="text/javascript" src="main.js"></script>

@@ -7,6 +7,7 @@ var LaserGun = function( params ) {
 	this.p2 = new Vec2();
 
 	this.color = "orange";
+	this.hasPower = false;
 
 	this.points = [];
 
@@ -29,6 +30,10 @@ LaserGun.prototype.propagate = function( points ) {
 }
 
 LaserGun.prototype.fire = function() {
+	// If the player has not picked up the battery yet, don't fire!
+	if ( !this.hasPower ) {
+		return;
+	}
 	if ( this.points.length > 1 ) {
 		// Group the points by twos into vectors 
 		for ( var i = 0; i < this.points.length - 1; i++ ) {

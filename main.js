@@ -11,7 +11,8 @@ $(window).load( function() {
 } );
 
 var levelDir = "./lvl";
-var levels = ["1", "2", "3", "4"];
+var levelPrefix = "level";
+var levels = ["1", "2", "3", "4", "5", "6", "7"];
 var levelIndex = 0;
 
 var SCREENS = {
@@ -40,6 +41,10 @@ var session = {
 
 			session.em.addSpawn( 2, function( x, y ) {
 				return new Turret( { posX: x, posY: y } );
+			});
+			
+			session.em.addSpawn( 12, function( x, y) {
+				return new Battery( {posX: x, posY: y} );
 			});
 
 			session.scrollbox = new ScrollBox( { 
@@ -79,7 +84,7 @@ function update() {
 	// Logic
 	switch ( session.screen ) {
 		case SCREENS.title:
-			session.loadLevel( levelDir + "/" + levels[levelIndex] + ".json");	
+			session.loadLevel( levelDir + levelPrefix + levels[levelIndex] + ".json");	
 			break;
 		case SCREENS.loading:
 		
@@ -91,11 +96,11 @@ function update() {
 			session.em.grab();
 			session.em.cull();
 
-			if ( !session.playerAlive() ) session.loadLevel( levelDir + "/" + levels[levelIndex] + ".json");
-			if ( session.enemiesDead() ) {
+			if ( !session.playerAlive() ) session.loadLevel( levelDir + levelPrefix + levels[levelIndex] + ".json");
+			if ( false && session.enemiesDead() ) {
 				levelIndex++;
 				levelIndex %= levels.length;
-				session.loadLevel( levelDir + "/" + levels[levelIndex] + ".json");
+				session.loadLevel( levelDir + levelPrefix + levels[levelIndex] + ".json");
 			} 
 			break;
 	}

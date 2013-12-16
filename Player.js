@@ -26,6 +26,10 @@ Player.prototype.hitWith = function( otherEntity ) {
 		this.removeThis = true;
 		this.gun.removeThis = true;
 	}
+	else if (otherEntity instanceof Battery ) {
+		this.gun.hasPower = true;
+		otherEntity.removeThis = true;
+	}
 }
 
 Player.prototype.update = function() {
