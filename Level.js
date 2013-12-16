@@ -160,9 +160,9 @@ Level.prototype.loadFromTiledJSON = function( levelFilename, callback ) {
 						
 							level.spawnLayer.set( r, c, newVal );
 						} ); 
-					}			
+					}		
 
-					level.spawnImage = new AnimatedImage( LEVEL_DIR + tileset.image, tileset.tilewidth, tileset.tileheight, 0, 0, [] );	
+					level.spawnImage = new AnimatedImage( LEVEL_DIR + tileset.image, tileset.tilewidth, tileset.tileheight, 0, 0, [] );		
 				} else {
 					// Subtract firstgrid offset from each draw layer
 					for (i in level.drawLayers) {
@@ -174,9 +174,10 @@ Level.prototype.loadFromTiledJSON = function( levelFilename, callback ) {
 							layer.set( r, c, newVal );
 						} ); 
 					}
+
 					level.image = new AnimatedImage(LEVEL_DIR + tileset.image, tileset.tilewidth, tileset.tileheight, 0, 0, [] );
 				}										
-			}	
+			}				
 			
 			callback();
 		}	
