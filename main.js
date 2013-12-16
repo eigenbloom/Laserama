@@ -6,11 +6,10 @@ var canvas, context; // Drawing modules
 $(window).load( function() {
 	canvas = document.getElementById( "screen" );
 	context = canvas.getContext( "2d" );
-	
 	setInterval( update, 60 );
 } );
 
-var levelDir = "./lvl";
+var levelDir = "./lvl/";
 var levelPrefix = "level";
 var levels = ["1", "2", "3", "4", "5", "6", "7"];
 var levelIndex = 0;
