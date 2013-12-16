@@ -15,8 +15,9 @@
 		<script type="text/javascript" src="../juego.js/RayHit.js"></script>
 		<script type="text/javascript" src="../juego.js/Ray.js"></script>
 		<script type="text/javascript" src="../juego.js/mouse.js"></script>
+		<script type="text/javascript" src="../juego.js/Level.js"></script>		
 
-		<script type="text/javascript" src="Level.js"></script>
+		<script type="text/javascript" src="lrLevel.js"></script>
 		<script type="text/javascript" src="EntityManager.js"></script>
 		<script type="text/javascript" src="Laser.js"></script>
 		<script type="text/javascript" src="LaserGun.js"></script>
@@ -26,7 +27,7 @@
 		<script type="text/javascript" src="main.js"></script>
 	</head>
 	<body>
-		<div align="center">
+		<div id="center" align="center">
 			<canvas id="screen" width="480" height="240">
 		</div>
 	</body>

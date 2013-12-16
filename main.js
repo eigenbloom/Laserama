@@ -29,7 +29,7 @@ var session = {
 	loadLevel: function( name ) {
 		session.screen = SCREENS.loading;
 
-		session.level = new Level();
+		session.level = new lrLevel();
 		session.level.loadFromTiledJSON( name, function() {
 
 			session.em = new EntityManager();

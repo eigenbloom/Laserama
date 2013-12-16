@@ -6,6 +6,18 @@
  <tileset firstgid="133" name="collision" tilewidth="16" tileheight="16">
   <image source="../img/collision_16x16.png" trans="ffffff" width="200" height="200"/>
  </tileset>
+ <tileset firstgid="18902" name="blah" tilewidth="16" tileheight="16">
+  <image source="../img/blah.png" trans="ffffff" width="1366" height="768"/>
+ </tileset>
+ <tileset firstgid="22982" name="blah2" tilewidth="16" tileheight="16">
+  <image source="../img/blah2.png" trans="ffffff" width="1366" height="768"/>
+ </tileset>
+ <tileset firstgid="27062" name="blah3" tilewidth="16" tileheight="16">
+  <image source="../img/blah3.png" trans="ffffff" width="1366" height="768"/>
+ </tileset>
+ <tileset firstgid="31142" name="blah4" tilewidth="16" tileheight="16">
+  <image source="../img/blah4.png" trans="ffffff" width="1366" height="768"/>
+ </tileset>
  <layer name="collision" width="8" height="8" opacity="0.19">
   <data encoding="base64" compression="zlib">
    eJxrY2BgaMOD8QFqyOOypx1JHF0eJofNrehyuOyDYQBerRA+

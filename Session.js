@@ -20,7 +20,7 @@ Session.prototype.SCREENS = {
 Session.prototype.loadLevel = function( name ) {
 	this.screen = SCREENS.loading;
 
-	this.level = new Level();
+	this.level = new lrLevel();
 	this.level.loadFromTiledJSON( name, function() {
 
 		this.screen = SCREENS.level;

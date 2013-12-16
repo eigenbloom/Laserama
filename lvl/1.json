@@ -30,6 +30,70 @@
  "tileheight":16,
  "tilesets":[
         {
+         "firstgid":18902,
+         "image":"..\/img\/blah.png",
+         "imageheight":768,
+         "imagewidth":1366,
+         "margin":0,
+         "name":"blah",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":16,
+         "tilewidth":16,
+         "transparentcolor":"#ffffff"
+        }, 
+        {
+         "firstgid":22982,
+         "image":"..\/img\/blah2.png",
+         "imageheight":768,
+         "imagewidth":1366,
+         "margin":0,
+         "name":"blah2",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":16,
+         "tilewidth":16,
+         "transparentcolor":"#ffffff"
+        }, 
+        {
+         "firstgid":27062,
+         "image":"..\/img\/blah3.png",
+         "imageheight":768,
+         "imagewidth":1366,
+         "margin":0,
+         "name":"blah3",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":16,
+         "tilewidth":16,
+         "transparentcolor":"#ffffff"
+        }, 
+        {
+         "firstgid":31142,
+         "image":"..\/img\/blah4.png",
+         "imageheight":768,
+         "imagewidth":1366,
+         "margin":0,
+         "name":"blah4",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":16,
+         "tilewidth":16,
+         "transparentcolor":"#ffffff"
+        },
+        {
          "firstgid":1,
          "image":"..\/img\/numbers_16x16.png",
          "imageheight":200,

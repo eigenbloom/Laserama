@@ -86,7 +86,7 @@ EntityManager.prototype.collide = function( level ) {
 
 		overlapList( this.entities[e], this.lasers );
 
-		overlapList( this.entities[e], this.regions );
+		//overlapList( this.entities[e], this.regions );
 	}
 }
 
