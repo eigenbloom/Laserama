@@ -451,9 +451,9 @@ Level.prototype.drawForeground = function( context, scrollBox, layer ) {
 
 	// Draw the tile layers
 	for (var l = 0; l < this.drawLayers.length; l++) {			
-		drawLayer( this.drawLayers[l], level.image, drawFill );
+		drawLayer( this.drawLayers[l], level.image, drawImage );
 	}
 	
-	drawLayer( this.collisionLayer, this.collisionImage, drawFill );
-	drawLayer( this.spawnLayer, this.spawnImage, drawFill );	
+	drawLayer( this.collisionLayer, this.collisionImage, drawImage );
+	drawLayer( this.spawnLayer, this.spawnImage, drawImage );	
 }
