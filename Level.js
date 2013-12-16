@@ -286,11 +286,27 @@ var a = new Vec2( 0, 0 );
 var b = new Vec2( 16, 0 );
 var c = new Vec2( 16, 16 );
 var d = new Vec2( 0, 16 );
+/*
+var t = new Line( a, b );
+var r = new Line( b, c );
+var b = new Line( c, d );
+var l = new Line( d, a );
+
+var m1 = new Line( a, d );
+var m2 = new Line( b, c );
+
+m1.material = 1;
+m2.material = 1;*/
 
 var tri1 = new Shape().Loop( [ b, c, d ] );
 var tri2 = new Shape().Loop( [ a, c, d ] );
 var tri3 = new Shape().Loop( [ a, b, d ] );
 var tri4 = new Shape().Loop( [ a, b, c ] );
+
+tri1.lines[2].material = 1;
+tri2.lines[0].material = 1;
+tri3.lines[1].material = 1;
+tri4.lines[2].material = 1;
 
 var colShapes = [ new Shape(), rect, tri1, tri2, tri3, tri4 ];
 
@@ -460,6 +476,6 @@ lrLevel.prototype.drawForeground = function( context, scrollBox, layer ) {
 	context.strokeStyle = "red";
 
 	for ( s in this.shapes ) {
-		this.shapes[s].draw( context );
+		this.shapes[s].materialDraw( context );
 	}
 }
