@@ -17,7 +17,7 @@
 		<script type="text/javascript" src="../juego.js/mouse.js"></script>
 		<script type="text/javascript" src="../juego.js/Level.js"></script>		
 
-		<script type="text/javascript" src="lrLevel.js"></script>
+		<script type="text/javascript" src="Level.js"></script>
 		<script type="text/javascript" src="EntityManager.js"></script>
 		<script type="text/javascript" src="Laser.js"></script>
 		<script type="text/javascript" src="LaserGun.js"></script>

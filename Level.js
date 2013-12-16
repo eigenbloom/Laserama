@@ -152,7 +152,8 @@ lrLevel.prototype.loadFromTiledJSON = function( levelFilename, callback ) {
 							if ( newVal < 0 ) newVal = 0;
 						
 							level.collisionLayer.set( r, c, newVal );
-							if ( newVal > 0 ) level.shapes.push( new Shape().Rectangle( c * level.tileWidth, r * level.tileHeight, level.tileWidth, level.tileHeight ) );
+							
+							if ( newVal > 0 && newVal < colShapes.length ) level.shapes.push( colShapes[newVal].copy().add( new Vec2(c * level.tileWidth, r * level.tileHeight) ) );
 						} ); 
 					}					
 				} else if ( tileset.name == "Spawn" || tileset.name == "spawn" ) {
@@ -286,32 +287,12 @@ var b = new Vec2( 16, 0 );
 var c = new Vec2( 16, 16 );
 var d = new Vec2( 0, 16 );
 
-var tri1 = new Shape( [ b, c, d ] );
-var tri2 = new Shape( [ a, c, d ] );
-var tri3 = new Shape( [ a, b, d ] );
-var tri4 = new Shape( [ a, b, c ] );
+var tri1 = new Shape().Loop( [ b, c, d ] );
+var tri2 = new Shape().Loop( [ a, c, d ] );
+var tri3 = new Shape().Loop( [ a, b, d ] );
+var tri4 = new Shape().Loop( [ a, b, c ] );
 
-lrLevel.prototype.bouncecast = function( line, maxBounces ) {
-	var points = [];	
-	points.push( line.p1 );
-
-	var ray = new Ray();
-
-	var line2 = new Line( line );
-
-	do {
-		ray = this.shapecast( line2 );
-		points.push( ray.point );
-
-		if ( ray.dir != null ) {
-			line2.p1.set( ray.point )
-			line2.p2.set( line2.p1.plus( ray.dir.scale( 300 ) ) );
-		}
-
-	} while( ray.dir && points.length < maxBounces);
-
-	return points;
-}
+var colShapes = [ new Shape(), rect, tri1, tri2, tri3, tri4 ];
 
 lrLevel.prototype.raycast = function( line ) {
 	// Start of the ray is point 1, end is point 2
