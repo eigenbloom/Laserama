@@ -1,18 +1,18 @@
 <html>
 	<title>Laserama</title>
 	<head>
-		<script type="text/javascript" src="../common/jquery-1.10.2.min.js"></script>
-		<script type="text/javascript" src="../common/keyboard.js"></script>
-		<script type="text/javascript" src="../common/image.js"></script>
-		<script type="text/javascript" src="../common/animatedKeys.js"></script>
-		<script type="text/javascript" src="../common/TileArray.js"></script>
-		<script type="text/javascript" src="../common/ScrollBox.js"></script>
-		<script type="text/javascript" src="../common/Entity.js"></script>
-		<script type="text/javascript" src="../common/Region.js"></script>
-		<script type="text/javascript" src="../common/Line.js"></script>
-		<script type="text/javascript" src="../common/Vec2.js"></script>
-		<script type="text/javascript" src="../common/Ray.js"></script>
-		<script type="text/javascript" src="../common/mouse.js"></script>
+		<script type="text/javascript" src="../juego.js/jquery-1.10.2.min.js"></script>
+		<script type="text/javascript" src="../juego.js/keyboard.js"></script>
+		<script type="text/javascript" src="../juego.js/image.js"></script>
+		<script type="text/javascript" src="../juego.js/animatedKeys.js"></script>
+		<script type="text/javascript" src="../juego.js/TileArray.js"></script>
+		<script type="text/javascript" src="../juego.js/ScrollBox.js"></script>
+		<script type="text/javascript" src="../juego.js/Entity.js"></script>
+		<script type="text/javascript" src="../juego.js/Region.js"></script>
+		<script type="text/javascript" src="../juego.js/Line.js"></script>
+		<script type="text/javascript" src="../juego.js/Vec2.js"></script>
+		<script type="text/javascript" src="../juego.js/Ray.js"></script>
+		<script type="text/javascript" src="../juego.js/mouse.js"></script>
 
 		<script type="text/javascript" src="Level.js"></script>
 		<script type="text/javascript" src="EntityManager.js"></script>
