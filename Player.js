@@ -4,11 +4,17 @@ var Player = function( params ) {
 	this.width = 16;
 	this.height = 16;
 
+	this.faceDir = DIR.down;
+
 	this.collisionGroup = GROUP.player;
 
 	this.gun = new LaserGun();
-
 	this.spawnEntity( this.gun );
+
+	this.grabber = new Grabber();
+	this.grabber.width = 16;
+	this.grabber.height = 16;
+	this.spawnEntity( this.grabber );
 
 	this.setValues( params );
 }
@@ -23,16 +29,62 @@ Player.prototype.STATE = {
 
 Player.prototype.hitWith = function( otherEntity ) {
 	if ( otherEntity instanceof Laser ) {
-		this.removeThis = true;
-		this.gun.removeThis = true;
+	//	this.removeThis = true;
+	//	this.gun.removeThis = true;
 	}
 }
 
-Player.prototype.update = function() {
-	if ( !this.collideLeft && keyHit( KEY.LEFT ) ) this.posX -= 16;
-	if ( !this.collideRight && keyHit( KEY.RIGHT ) ) this.posX += 16;
-	if ( !this.collideUp && keyHit( KEY.UP ) ) this.posY -= 16;
-	if ( !this.collideDown && keyHit( KEY.DOWN ) ) this.posY += 16;
+Player.prototype.update = function( level ) {
+	if ( keyHit( KEY.LEFT ) ) {
+		this.faceDir = DIR.left;
+		if ( !this.collideLeft ) this.posX -= 16;
+	}
+	if ( keyHit( KEY.RIGHT ) ) {
+		this.faceDir = DIR.right;
+		if ( !this.collideRight ) this.posX += 16;
+	}
+	if ( keyHit( KEY.UP ) ) {
+		this.faceDir = DIR.up;
+		if ( !this.collideUp ) this.posY -= 16;
+	}
+	if ( keyHit( KEY.DOWN ) ) {
+		this.faceDir = DIR.down;
+		if ( !this.collideDown ) this.posY += 16; 
+	}
+
+	switch ( this.faceDir ) {
+		case DIR.left:
+			this.grabber.posX = this.posX - this.grabber.width;
+			this.grabber.posY = this.posY;
+			break;
+		case DIR.right:
+			this.grabber.posX = this.posX + this.width;
+			this.grabber.posY = this.posY;
+			break;
+		case DIR.up:
+			this.grabber.posX = this.posX;
+			this.grabber.posY = this.posY - this.grabber.height;	
+			break;
+		case DIR.down:
+			this.grabber.posX = this.posX;
+			this.grabber.posY = this.posY + this.height;
+			break;
+	}
+
+	if ( keyHit( KEY.X ) ) {
+		this.grabber.grab();
+	}
+
+	if ( keyLetGo( KEY.X ) ) {
+		this.grabber.drop();
+	}
+
+	for ( o in this.grabber.objects ) {
+		var obj = this.grabber.objects[o];
+
+		obj.posX = this.posX;
+		obj.posY = this.posY;
+	}
 
 	if ( keyHit( KEY.Z ) ) this.gun.fire();
 
