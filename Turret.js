@@ -45,6 +45,6 @@ Turret.prototype.update = function( level ) {
 }
 
 Turret.prototype.draw = function( context ) {
-	context.fillStyle = "blue";
+	context.fillStyle = "green";
 	this.drawRect( context );
 }
