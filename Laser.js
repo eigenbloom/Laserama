@@ -4,6 +4,12 @@ var Laser = function( params ) {
 	this.p1 = new Vec2();
 	this.p2 = new Vec2();
 
+	this.growRate = 1.0;
+	this.decayRate = -0.1;
+	this.decay = false;
+
+	this.width = 2;
+
 	this.shape = SHAPE.line;
 	this.color = "red";
 
@@ -18,11 +24,15 @@ Laser.prototype.hitWith = function( otherEntity ) {
 }
 
 Laser.prototype.update = function() {
-
+	if ( this.decay ) {
+		this.width += this.growRate;
+		this.growRate += this.decayRate;
+		if ( this.width <= 0 ) this.removeThis = true;
+	}
 }
 
 Laser.prototype.draw = function( context ) {
-	context.lineWidth = 2;
+	context.lineWidth = this.width;
 	context.strokeStyle = this.color;
 
 	context.beginPath();

@@ -30,6 +30,7 @@
 var EntityManager = function() {
 	this.lasers = [];
 	this.entities = [];	
+	this.regions = [];
 
 	this.spawns = [];
 }
@@ -43,6 +44,9 @@ EntityManager.prototype.doForAllEntities = function( func ) {
 	for ( l in this.lasers ) {
 		func( this.lasers[l] );
 	}
+	for ( r in this.regions ) {
+		func( this.regions[r] );
+	}	
 }
 
 EntityManager.prototype.clear = function() {
@@ -86,6 +90,8 @@ EntityManager.prototype.collide = function( level ) {
 		level.collide( this.entities[e] );
 
 		overlapList( this.entities[e], this.lasers );
+
+		//overlapList( this.entities[e], this.regions );
 	}
 }
 
@@ -103,7 +109,8 @@ var cullEntityList = function( entityList ) {
 
 EntityManager.prototype.cull = function() {
 	cullEntityList( this.entities );
-	cullEntityList( this.lasers )
+	cullEntityList( this.lasers );
+	cullEntityList( this.regions );
 }
 	
 EntityManager.prototype.grab = function() {
@@ -125,6 +132,8 @@ EntityManager.prototype.insert = function( entity ) {
 
 	if ( entity instanceof Laser ) {
 		this.lasers.push( entity );
+	} else if ( entity instanceof Region ) {
+		this.regions.push( entity );
 	} else {
 		this.entities.push( entity );
 	}
@@ -164,7 +173,11 @@ EntityManager.prototype.addSpawn = function( index, func ) {
 
 EntityManager.prototype.draw = function(context, layer) {
 	this.doForAllEntities( function( entity ) {
-		entity.draw( context );
+		if ( !( entity instanceof Player ) ) entity.draw( context );
+		if (LOG_COLLISION) entity.drawCollisionBox( context );
+	});	
+	this.doForAllEntities( function( entity ) {
+		if ( entity instanceof Player ) entity.draw( context );
 		if (LOG_COLLISION) entity.drawCollisionBox( context );
 	});	
 }

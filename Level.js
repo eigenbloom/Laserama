@@ -37,7 +37,9 @@
 
 var LEVEL_DIR = "./lvl/";
 
-var Level = function() {
+var lrLevel = function() {
+	Level.call( this );
+
 	this.width = 0;
 	this.height = 0;
 	
@@ -56,8 +58,10 @@ var Level = function() {
 	this.spawnImage = null;
 
 	this.frameCounter = 0;
-	
 }
+
+lrLevel.prototype = new Level();
+lrLevel.prototype.constructor = lrLevel();
 
 ///////////////////////
 // LOADFROMTILEDJSON // Load a tilemap made with the map editor program Tiled
@@ -67,9 +71,9 @@ var Level = function() {
  * levelFileName - name of the level file
  * callback - function to call when the level has finished loading
  */	
-	
-Level.prototype.loadFromTiledJSON = function( levelFilename, callback ) {
-	console.log( "[Level] Attempting to load " + levelFilename + " as Tiled JSON" );
+
+lrLevel.prototype.loadFromTiledJSON = function( levelFilename, callback ) {
+	console.log( "[lrLevel] Attempting to load " + levelFilename + " as Tiled JSON" );
 
 	var tileOffset = 0;
 	
@@ -83,8 +87,8 @@ Level.prototype.loadFromTiledJSON = function( levelFilename, callback ) {
 		success: function( filedata ) {
 			
 			levelData = JSON.parse( filedata );			
-			console.log( "[Level] " + levelFilename);
-			console.log( "[Level] " + levelData );
+			console.log( "[lrLevel] " + levelFilename);
+			console.log( "[lrLevel] " + levelData );
 			
 			level.width = levelData.width;
 			level.height = levelData.height;
@@ -99,7 +103,7 @@ Level.prototype.loadFromTiledJSON = function( levelFilename, callback ) {
 
 				// Object layer, has spawns and paths
 				if ( isObjectLayer ) {
-					console.log( "[Level] Object layer " + filelayer.name );
+					console.log( "[lrLevel] Object layer " + filelayer.name );
 					
 					for ( o in filelayer.objects ) {
 						object = filelayer.objects[o];
@@ -120,7 +124,7 @@ Level.prototype.loadFromTiledJSON = function( levelFilename, callback ) {
 
 						}
 
-						console.log( "[Level] Object " + object.name );
+						console.log( "[lrLevel] Object " + object.name );
 					}
 				} else if ( isTileLayer ) {
 					var layer = new TileArray( filelayer.width, filelayer.data );
@@ -130,7 +134,7 @@ Level.prototype.loadFromTiledJSON = function( levelFilename, callback ) {
 					} else if ( filelayer.name == "Spawn" || filelayer.name == "spawn" ) {
 						level.spawnLayer = layer;
 					} else {
-						console.log( "[Level] Layer " + filelayer.name );
+						console.log( "[lrLevel] Layer " + filelayer.name );
 						level.drawLayers.push( layer );
 					}
 				} else {
@@ -148,10 +152,10 @@ Level.prototype.loadFromTiledJSON = function( levelFilename, callback ) {
 							if ( newVal < 0 ) newVal = 0;
 						
 							level.collisionLayer.set( r, c, newVal );
+							
+							if ( newVal > 0 && newVal < colShapes.length ) level.shapes.push( colShapes[newVal].copy().add( new Vec2(c * level.tileWidth, r * level.tileHeight) ) );
 						} ); 
-					}
-
-					level.collisionImage = new AnimatedImage( LEVEL_DIR + tileset.image, tileset.tilewidth, tileset.tileheight, 0, 0, [] );
+					}					
 				} else if ( tileset.name == "Spawn" || tileset.name == "spawn" ) {
 					if ( level.spawnLayer != null ) {
 						level.spawnLayer.map( function( r, c, val ) {
@@ -160,9 +164,13 @@ Level.prototype.loadFromTiledJSON = function( levelFilename, callback ) {
 						
 							level.spawnLayer.set( r, c, newVal );
 						} ); 
+<<<<<<< HEAD
 					}		
 
 					level.spawnImage = new AnimatedImage( LEVEL_DIR + tileset.image, tileset.tilewidth, tileset.tileheight, 0, 0, [] );		
+=======
+					}			
+>>>>>>> graham
 				} else {
 					// Subtract firstgrid offset from each draw layer
 					for (i in level.drawLayers) {
@@ -174,9 +182,25 @@ Level.prototype.loadFromTiledJSON = function( levelFilename, callback ) {
 							layer.set( r, c, newVal );
 						} ); 
 					}
+<<<<<<< HEAD
 
 					level.image = new AnimatedImage(LEVEL_DIR + tileset.image, tileset.tilewidth, tileset.tileheight, 0, 0, [] );
 				}										
+=======
+				}										
+			}	
+
+			for ( t in levelData.tilesets ) {
+				tileset = levelData.tilesets[t];
+				
+				if ( tileset.name == "Collision" || tileset.name == "collision" ) {
+					level.collisionImage = new AnimatedImage( LEVEL_DIR + tileset.image, tileset.tilewidth, tileset.tileheight, 0, 0, [] );
+				} else if ( tileset.name == "Spawn" || tileset.name == "spawn" ) {		
+					level.spawnImage = new AnimatedImage( LEVEL_DIR + tileset.image, tileset.tilewidth, tileset.tileheight, 0, 0, [] );	
+				} else {
+					level.image = new AnimatedImage(LEVEL_DIR + tileset.image, tileset.tilewidth, tileset.tileheight, 0, 0, [] );
+				}										
+>>>>>>> graham
 			}				
 			
 			callback();
@@ -184,7 +208,7 @@ Level.prototype.loadFromTiledJSON = function( levelFilename, callback ) {
 	});	
 }
 
-Level.prototype.setScrollBoxInitialPosition = function(scrollBox) {
+lrLevel.prototype.setScrollBoxInitialPosition = function(scrollBox) {
 	for (var r = 0; r < this.height; r++) {
 		for (var c = 0; c < this.width; c++) {
 			if (this.getSpawnData(r, c) == SPAWNINDICES.startPosition) {
@@ -205,7 +229,7 @@ Level.prototype.setScrollBoxInitialPosition = function(scrollBox) {
  * r - row
  * c - column
  */
-Level.prototype.getCollisionData = function( r, c ) {
+lrLevel.prototype.getCollisionData = function( r, c ) {
 	if ( this.collisionLayer == null ) return 0;
 	
 	return this.collisionLayer.get( r, c );
@@ -219,7 +243,7 @@ Level.prototype.getCollisionData = function( r, c ) {
  * r - row
  * c - column
  */	
-Level.prototype.getSpawnData = function( r, c ) {
+lrLevel.prototype.getSpawnData = function( r, c ) {
 	if ( this.spawnLayer == null ) return 0;
 
 	return this.spawnLayer.get( r, c );
@@ -234,7 +258,7 @@ Level.prototype.getSpawnData = function( r, c ) {
  * c - column
  * val - value to write
  */	
-Level.prototype.setSpawnData = function( r, c, val ) {
+lrLevel.prototype.setSpawnData = function( r, c, val ) {
 	if ( this.spawnLayer == null ) return;
 
 	this.spawnLayer.set( r, c, val );
@@ -248,7 +272,7 @@ Level.prototype.setSpawnData = function( r, c, val ) {
  * entity - the isEntity that will be tested for collision
  */	
 	
-Level.prototype.collide = function( entity ) {
+lrLevel.prototype.collide = function( entity ) {
 	if ( this.collisionLayer == null ) return;
 	if ( entity.isGhost ) return;
 
@@ -268,34 +292,37 @@ Level.prototype.collide = function( entity ) {
 	}		
 }	
 
-var Ray = function( point, dir ) {
-	this.point = point;
-	this.dir = dir;
-}
+var rect = new Shape().Rectangle( 0, 0, 16, 16 );
 
-Level.prototype.bouncecast = function( line, maxBounces ) {
-	var points = [];	
-	points.push( line.p1 );
+var a = new Vec2( 0, 0 );
+var b = new Vec2( 16, 0 );
+var c = new Vec2( 16, 16 );
+var d = new Vec2( 0, 16 );
+/*
+var t = new Line( a, b );
+var r = new Line( b, c );
+var b = new Line( c, d );
+var l = new Line( d, a );
 
-	var ray = new Ray();
+var m1 = new Line( a, d );
+var m2 = new Line( b, c );
 
-	var line2 = new Line( line );
+m1.material = 1;
+m2.material = 1;*/
 
-	do {
-		ray = this.raycast( line2 );
-		points.push( ray.point );
+var tri1 = new Shape().Loop( [ b, c, d ] );
+var tri2 = new Shape().Loop( [ a, c, d ] );
+var tri3 = new Shape().Loop( [ a, b, d ] );
+var tri4 = new Shape().Loop( [ a, b, c ] );
 
-		if ( ray.dir != null ) {
-			line2.p1.set( ray.point )
-			line2.p2.set( line2.p1.plus( ray.dir.scale( 300 ) ) );
-		}
+tri1.lines[2].material = 1;
+tri2.lines[0].material = 1;
+tri3.lines[1].material = 1;
+tri4.lines[2].material = 1;
 
-	} while( ray.dir && points.length < maxBounces);
+var colShapes = [ new Shape(), rect, tri1, tri2, tri3, tri4 ];
 
-	return points;
-}
-
-Level.prototype.raycast = function( line ) {
+lrLevel.prototype.raycast = function( line ) {
 	// Start of the ray is point 1, end is point 2
 	// Copy the start and end values so we can do what we want with them without disturbing the originals
 	var x1 = line.p1.x
@@ -422,13 +449,13 @@ Level.prototype.raycast = function( line ) {
 	return new Ray( new Vec2( x2, y2 ), null );
 }
 
-Level.prototype.raycastSucceeds = function(line) {
+lrLevel.prototype.raycastSucceeds = function(line) {
 	ray = this.raycast(line).ray;
 
 	return (ray.x2 == line.p2.x && ray.y2 == line.p2.y );
 }
 
-Level.prototype.drawForeground = function( context, scrollBox, layer ) {
+lrLevel.prototype.drawForeground = function( context, scrollBox, layer ) {
 	
 	level = this;
 
@@ -457,4 +484,13 @@ Level.prototype.drawForeground = function( context, scrollBox, layer ) {
 	
 	drawLayer( this.collisionLayer, this.collisionImage, drawImage );
 	drawLayer( this.spawnLayer, this.spawnImage, drawImage );	
+<<<<<<< HEAD
+=======
+
+	context.strokeStyle = "red";
+
+	for ( s in this.shapes ) {
+		this.shapes[s].materialDraw( context );
+	}
+>>>>>>> graham
 }

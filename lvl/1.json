@@ -1,7 +1,7 @@
 { "height":8,
  "layers":[
         {
-         "data":[134, 134, 134, 134, 134, 134, 134, 134, 0, 0, 0, 0, 0, 0, 0, 134, 0, 0, 0, 0, 0, 0, 0, 134, 0, 0, 0, 0, 0, 0, 0, 134, 0, 0, 0, 0, 0, 0, 135, 134, 0, 0, 0, 0, 0, 135, 134, 134, 0, 0, 0, 0, 135, 134, 134, 134, 134, 134, 134, 134, 134, 134, 134, 134],
+         "data":[134, 134, 134, 134, 134, 134, 134, 134, 134, 137, 0, 0, 0, 0, 138, 134, 134, 0, 0, 0, 0, 0, 0, 134, 134, 0, 0, 0, 0, 0, 0, 134, 134, 0, 0, 0, 0, 0, 0, 134, 134, 0, 0, 0, 0, 0, 0, 134, 134, 136, 0, 0, 0, 0, 135, 134, 134, 134, 134, 134, 134, 134, 134, 134],
          "height":8,
          "name":"collision",
          "opacity":0.189999997615814,
@@ -12,7 +12,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":8,
          "name":"spawn",
          "opacity":0.779999971389771,
@@ -52,6 +52,70 @@
          "imagewidth":200,
          "margin":0,
          "name":"collision",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":16,
+         "tilewidth":16,
+         "transparentcolor":"#ffffff"
+        }, 
+        {
+         "firstgid":277,
+         "image":"..\/img\/blah.png",
+         "imageheight":768,
+         "imagewidth":1366,
+         "margin":0,
+         "name":"blah",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":16,
+         "tilewidth":16,
+         "transparentcolor":"#ffffff"
+        }, 
+        {
+         "firstgid":4357,
+         "image":"..\/img\/blah2.png",
+         "imageheight":768,
+         "imagewidth":1366,
+         "margin":0,
+         "name":"blah2",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":16,
+         "tilewidth":16,
+         "transparentcolor":"#ffffff"
+        }, 
+        {
+         "firstgid":8437,
+         "image":"..\/img\/blah3.png",
+         "imageheight":768,
+         "imagewidth":1366,
+         "margin":0,
+         "name":"blah3",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":16,
+         "tilewidth":16,
+         "transparentcolor":"#ffffff"
+        }, 
+        {
+         "firstgid":12517,
+         "image":"..\/img\/blah4.png",
+         "imageheight":768,
+         "imagewidth":1366,
+         "margin":0,
+         "name":"blah4",
          "properties":
             {
 

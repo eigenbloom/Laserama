@@ -37,7 +37,7 @@ LaserGun.prototype.fire = function() {
 	if ( this.points.length > 1 ) {
 		// Group the points by twos into vectors 
 		for ( var i = 0; i < this.points.length - 1; i++ ) {
-			this.spawnEntity( new Laser( { p1: this.points[i], p2: this.points[i + 1] } ) );
+			this.spawnEntity( new Laser( { p1: this.points[i], p2: this.points[i + 1], decay: true } ) );
 		}
 	}
 }
