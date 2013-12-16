@@ -1,8 +1,8 @@
 var Player = function( params ) {
 	Entity.call( this );
 
-	this.width = 16;
-	this.height = 16;
+	this.width = 20;
+	this.height = 20;
 
 	this.collisionGroup = GROUP.player;
 
@@ -11,6 +11,9 @@ var Player = function( params ) {
 	this.spawnEntity( this.gun );
 
 	this.setValues( params );
+
+	this.animationRunner = new AnimationRunner(this.posX, this.posY, 0, 0);
+	this.animationRunner.setLoopingAnim(ANIM.playerForwardStill);
 }
 
 Player.prototype = new Entity();
@@ -47,17 +50,14 @@ Player.prototype.update = function() {
 	if ( keyHeld( KEY.X ) ) {
 		this.state = this.STATE.grab;
 	}
-
+	
 	if ( this.state == this.STATE.grab ) {
 
 	}
+
+	this.animationRunner.update(this.posX, this.posY, 0, 0);
 }
 
-Player.prototype.draw = function( context ) {
-	context.fillStyle = "green";
-	this.drawRect( context );
-
-	this.drawCollisionBox( context );
-
-	this.gun.draw( context );
+Player.prototype.draw = function( context ) {	
+	this.animationRunner.draw(context);
 }
