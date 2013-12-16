@@ -6,13 +6,10 @@ var canvas, context; // Drawing modules
 $(window).load( function() {
 	canvas = document.getElementById( "screen" );
 	context = canvas.getContext( "2d" );
-<<<<<<< HEAD
-=======
-	
+
 	context.font = '32pt Disco';
 	context.fillText( "", 0, 0 );
 
->>>>>>> graham
 	setInterval( update, 60 );
 } );
 
@@ -127,14 +124,6 @@ function update() {
 			session.em.grab();
 			session.em.cull();
 
-<<<<<<< HEAD
-			if ( !session.playerAlive() ) session.loadLevel( levelDir + levelPrefix + levels[levelIndex] + ".json");
-			if ( false && session.enemiesDead() ) {
-				levelIndex++;
-				levelIndex %= levels.length;
-				session.loadLevel( levelDir + levelPrefix + levels[levelIndex] + ".json");
-			} 
-=======
 			switch ( session.levelState ) {
 				case STATUS.inprogress:
 					if ( !session.playerAlive() ) {
@@ -165,7 +154,6 @@ function update() {
 			break;
 		case SCREENS.lose:
 			againButton.update();
->>>>>>> graham
 			break;
 	}
 

@@ -3,8 +3,8 @@ var gravity = 0.5;
 var Player = function( params ) {
 	Entity.call( this );
 
-	this.width = 16;
-	this.height = 16;
+	this.width = 20;
+	this.height = 20;
 
 	this.velZ = 0.0;
 	this.posZ = 0.0;
@@ -17,6 +17,9 @@ var Player = function( params ) {
 	this.spawnEntity( this.gun );
 
 	this.setValues( params );
+
+	this.animationRunner = new AnimationRunner(this.posX, this.posY, 0, 0);
+	this.animationRunner.setLoopingAnim(ANIM.playerForwardStill);
 }
 
 Player.prototype = new Entity();
@@ -72,7 +75,7 @@ Player.prototype.update = function( level ) {
 	if ( keyHeld( KEY.X ) ) {
 		this.state = this.STATE.grab;
 	}
-
+	
 	if ( this.state == this.STATE.grab ) {
 
 	}
@@ -88,5 +91,9 @@ Player.prototype.draw = function( context ) {
 	this.drawCollisionBox( context );
 	context.restore();
 
-	this.gun.draw( context );
+	this.animationRunner.update(this.posX, this.posY, 0, 0);
+}
+
+Player.prototype.draw = function( context ) {	
+	this.animationRunner.draw(context);
 }

@@ -155,7 +155,9 @@ lrLevel.prototype.loadFromTiledJSON = function( levelFilename, callback ) {
 							
 							if ( newVal > 0 && newVal < colShapes.length ) level.shapes.push( colShapes[newVal].copy().add( new Vec2(c * level.tileWidth, r * level.tileHeight) ) );
 						} ); 
-					}					
+					}		
+
+					level.collisionImage = new AnimatedImage( LEVEL_DIR + tileset.image, tileset.tilewidth, tileset.tileheight, 0, 0, [] );			
 				} else if ( tileset.name == "Spawn" || tileset.name == "spawn" ) {
 					if ( level.spawnLayer != null ) {
 						level.spawnLayer.map( function( r, c, val ) {
@@ -164,13 +166,9 @@ lrLevel.prototype.loadFromTiledJSON = function( levelFilename, callback ) {
 						
 							level.spawnLayer.set( r, c, newVal );
 						} ); 
-<<<<<<< HEAD
 					}		
 
 					level.spawnImage = new AnimatedImage( LEVEL_DIR + tileset.image, tileset.tilewidth, tileset.tileheight, 0, 0, [] );		
-=======
-					}			
->>>>>>> graham
 				} else {
 					// Subtract firstgrid offset from each draw layer
 					for (i in level.drawLayers) {
@@ -182,25 +180,8 @@ lrLevel.prototype.loadFromTiledJSON = function( levelFilename, callback ) {
 							layer.set( r, c, newVal );
 						} ); 
 					}
-<<<<<<< HEAD
-
 					level.image = new AnimatedImage(LEVEL_DIR + tileset.image, tileset.tilewidth, tileset.tileheight, 0, 0, [] );
-				}										
-=======
-				}										
-			}	
-
-			for ( t in levelData.tilesets ) {
-				tileset = levelData.tilesets[t];
-				
-				if ( tileset.name == "Collision" || tileset.name == "collision" ) {
-					level.collisionImage = new AnimatedImage( LEVEL_DIR + tileset.image, tileset.tilewidth, tileset.tileheight, 0, 0, [] );
-				} else if ( tileset.name == "Spawn" || tileset.name == "spawn" ) {		
-					level.spawnImage = new AnimatedImage( LEVEL_DIR + tileset.image, tileset.tilewidth, tileset.tileheight, 0, 0, [] );	
-				} else {
-					level.image = new AnimatedImage(LEVEL_DIR + tileset.image, tileset.tilewidth, tileset.tileheight, 0, 0, [] );
-				}										
->>>>>>> graham
+				}																				
 			}				
 			
 			callback();
@@ -484,13 +465,10 @@ lrLevel.prototype.drawForeground = function( context, scrollBox, layer ) {
 	
 	drawLayer( this.collisionLayer, this.collisionImage, drawImage );
 	drawLayer( this.spawnLayer, this.spawnImage, drawImage );	
-<<<<<<< HEAD
-=======
 
 	context.strokeStyle = "red";
 
 	for ( s in this.shapes ) {
 		this.shapes[s].materialDraw( context );
 	}
->>>>>>> graham
 }
