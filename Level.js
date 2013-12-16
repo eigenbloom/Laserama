@@ -57,6 +57,7 @@ var Level = function() {
 
 	this.frameCounter = 0;
 	
+	this.shapes = [];
 }
 
 ///////////////////////
@@ -148,6 +149,7 @@ Level.prototype.loadFromTiledJSON = function( levelFilename, callback ) {
 							if ( newVal < 0 ) newVal = 0;
 						
 							level.collisionLayer.set( r, c, newVal );
+							if ( newVal > 0 ) level.shapes.push( new Shape().Rectangle( c * level.tileWidth, r * level.tileHeight, level.tileWidth, level.tileHeight ) );
 						} ); 
 					}
 
@@ -272,6 +274,18 @@ var Ray = function( point, dir ) {
 	this.dir = dir;
 }
 
+var rect = new Shape().Rectangle( 0, 0, 16, 16 );
+
+var a = new Vec2( 0, 0 );
+var b = new Vec2( 16, 0 );
+var c = new Vec2( 16, 16 );
+var d = new Vec2( 0, 16 );
+
+var tri1 = new Shape( [ b, c, d ] );
+var tri2 = new Shape( [ a, c, d ] );
+var tri3 = new Shape( [ a, b, d ] );
+var tri4 = new Shape( [ a, b, c ] );
+
 Level.prototype.bouncecast = function( line, maxBounces ) {
 	var points = [];	
 	points.push( line.p1 );
@@ -292,6 +306,28 @@ Level.prototype.bouncecast = function( line, maxBounces ) {
 	} while( ray.dir && points.length < maxBounces);
 
 	return points;
+}
+
+Level.prototype.shapecast = function( line ) {
+	var closestPoints = [];
+
+	for ( s in this.shapes ) {
+		points = this.shapes[s].intersect( line );
+
+		if ( points.length > 0 ) closestPoints.push( points[0] );
+	}
+
+	if ( closestPoints.length > 0 ) {
+		closestPoints.sort( function( a, b ) { return Math.abs( a.x - line.p1.x ) - Math.abs( b.x - line.p1.x ) } );
+
+		var incident = line.getDirection().normalize();
+		var cosine = normal.times( incident.dot( normal ) );
+		var dir = cosine.plus( cosine.minus( incident ) );
+
+		return new Ray( closestPoints[0], )
+	} else {
+		return new Ray( line.p2.copy(), null );
+	}	
 }
 
 Level.prototype.raycast = function( line ) {
