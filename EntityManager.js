@@ -168,7 +168,11 @@ EntityManager.prototype.addSpawn = function( index, func ) {
 
 EntityManager.prototype.draw = function(context, layer) {
 	this.doForAllEntities( function( entity ) {
-		entity.draw( context );
+		if ( !( entity instanceof Player ) ) entity.draw( context );
+		if (LOG_COLLISION) entity.drawCollisionBox( context );
+	});	
+	this.doForAllEntities( function( entity ) {
+		if ( entity instanceof Player ) entity.draw( context );
 		if (LOG_COLLISION) entity.drawCollisionBox( context );
 	});	
 }
