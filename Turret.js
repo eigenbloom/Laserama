@@ -1,8 +1,8 @@
 var Turret = function( params ) {
 	Entity.call( this );
 
-	this.width = 16;
-	this.height = 16;
+	this.width = 20;
+	this.height = 20;
 
 	this.collisionGroup = GROUP.enemy;
 
@@ -15,6 +15,8 @@ var Turret = function( params ) {
 	this.spawnEntity( this.laser );
 
 	this.setValues( params );
+	this.animationRunner = new AnimationRunner(this.posX, this.posY, 0, 0);
+	this.animationRunner.setLoopingAnim(ANIM.turret);
 }
 
 Turret.prototype = new Entity();
@@ -42,9 +44,12 @@ Turret.prototype.update = function( level ) {
 
 	this.laser.p1.set( points[0] );
 	this.laser.p2.set( points[1] );
+	
+	this.animationRunner.update(this.posX, this.posY, 0, 0);
+	this.animationRunner.setRotation(this.angle);
 }
 
 Turret.prototype.draw = function( context ) {
-	context.fillStyle = "blue";
-	this.drawRect( context );
+	IMAGE.turretBase.draw(context, this.posX, this.posY, 1);
+	this.animationRunner.draw(context);
 }
