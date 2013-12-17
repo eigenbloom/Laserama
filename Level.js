@@ -174,7 +174,7 @@ lrLevel.prototype.loadFromTiledJSON = function( levelFilename, callback ) {
 					for (i in level.drawLayers) {
 						layer = level.drawLayers[i];
 						layer.map( function( r, c, val ) {
-							var newVal = val - tileset.firstgid + 1;
+							var newVal = val - tileset.firstgid;
 							if ( newVal < 0 ) newVal = 0;
 						
 							layer.set( r, c, newVal );
