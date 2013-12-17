@@ -6,8 +6,12 @@ var Player = function( params ) {
 	this.width = 20;
 	this.height = 20;
 
+	this.velX = 0.0;
+	this.velY = 0.0;
 	this.velZ = 0.0;
 	this.posZ = 0.0;
+	
+	this.speed = 4.0;
 
 	this.speed = 6;
 
