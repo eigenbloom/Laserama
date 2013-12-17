@@ -38,13 +38,13 @@ var EntityManager = function() {
 // Do something for each entity
 // func should take a single argument, the entity
 EntityManager.prototype.doForAllEntities = function( func ) {
-	for ( e in this.entities ) {
+	for ( var e in this.entities ) {
 		func( this.entities[e] );
 	}
-	for ( l in this.lasers ) {
+	for ( var l in this.lasers ) {
 		func( this.lasers[l] );
 	}
-	for ( r in this.regions ) {
+	for ( var r in this.regions ) {
 		func( this.regions[r] );
 	}	
 }
@@ -55,8 +55,8 @@ EntityManager.prototype.clear = function() {
 
 // Helper function
 var overlapList = function( entity, entityList ) {
-	for ( e in entityList ) {
-		otherEntity = entityList[e];
+	for ( var e in entityList ) {
+		var otherEntity = entityList[e];
 		
 		if ( entity.canOverlap( otherEntity ) && entity.overlaps( otherEntity ) ) {
 			otherEntity.hitWith( entity );
@@ -81,7 +81,8 @@ EntityManager.prototype.collide = function( level ) {
 		}
 	});
 
-	for ( e in this.entities ) {
+	for ( var e in this.entities ) {
+
 		// If entity is the player, it should overlap with every other entity
 		if ( this.entities[e] instanceof Player ) {
 			overlapList( this.entities[e], this.entities );
@@ -102,7 +103,7 @@ EntityManager.prototype.update = function( level ) {
 }
 	
 var cullEntityList = function( entityList ) {
-	for ( e in entityList ) {
+	for ( var e in entityList ) {
 		if ( entityList[e].removeThis ) entityList.splice( e, 1 );
 	}
 }
@@ -173,7 +174,8 @@ EntityManager.prototype.addSpawn = function( index, func ) {
 
 EntityManager.prototype.draw = function(context, layer) {
 	this.doForAllEntities( function( entity ) {
-		if ( !( entity instanceof Player ) ) entity.draw( context );
+		//if ( !( entity instanceof Player ) ) 
+		entity.draw( context );
 		if (LOG_COLLISION) entity.drawCollisionBox( context );
 	});	
 	this.doForAllEntities( function( entity ) {
