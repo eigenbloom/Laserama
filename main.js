@@ -52,10 +52,49 @@ var session = {
 				return new Player( { posX: x, posY: y } );
 			});
 
-			session.em.addSpawn( 2, function( x, y ) {
-				return new Turret( { posX: x, posY: y } );
+			// Non-rotating turret spawns
+			session.em.addSpawn( 9, function( x, y ) {
+				return new Turret( {posX: x, posY: y, angle: Math.PI / 2, rotateSpeed: 0} );
+			});
+			session.em.addSpawn( 10, function( x, y ) {
+				return new Turret( {posX: x, posY: y, angle: Math.PI, rotateSpeed: 0} );
+			});
+			session.em.addSpawn( 20, function( x, y ) {
+				return new Turret( {posX: x, posY: y, angle: 3* Math.PI / 2, rotateSpeed: 0} );
+			});
+			session.em.addSpawn( 21, function( x, y ) {
+				return new Turret( {posX: x, posY: y, angle: 0, rotateSpeed: 0} );
 			});
 			
+			// Clockwise rotating turret spawns
+			session.em.addSpawn( 22, function( x, y ) {
+				return new Turret( {posX: x, posY: y, angle: Math.PI / 2, rotateSpeed: 0.1} );
+			});
+			session.em.addSpawn( 23, function( x, y ) {
+				return new Turret( {posX: x, posY: y, angle: Math.PI, rotateSpeed: 0.1} );
+			});
+			session.em.addSpawn( 33, function( x, y ) {
+				return new Turret( {posX: x, posY: y, angle: 3* Math.PI / 2, rotateSpeed: 0.1} );
+			});
+			session.em.addSpawn( 34, function( x, y ) {
+				return new Turret( {posX: x, posY: y, angle: 0, rotateSpeed: 0.1} );
+			});
+			
+			// Counterclockwise rotating turret spawns
+			session.em.addSpawn( 24, function( x, y ) {
+				return new Turret( {posX: x, posY: y, angle: Math.PI / 2, rotateSpeed: -0.1} );
+			});
+			session.em.addSpawn( 25, function( x, y ) {
+				return new Turret( {posX: x, posY: y, angle: Math.PI, rotateSpeed: -0.1} );
+			});
+			session.em.addSpawn( 35, function( x, y ) {
+				return new Turret( {posX: x, posY: y, angle: 3* Math.PI / 2, rotateSpeed: -0.1} );
+			});
+			session.em.addSpawn( 36, function( x, y ) {
+				return new Turret( {posX: x, posY: y, angle: 0, rotateSpeed: -0.1} );
+			});
+			
+			// Battery spawn
 			session.em.addSpawn( 12, function( x, y) {
 				return new Battery( {posX: x, posY: y} );
 			});
@@ -100,11 +139,11 @@ var startButton = new Button( IMAGE.nextButton, 180, 130, 117, 99, function() {
 var nextButton = new Button( IMAGE.nextButton, 180, 130, 117, 99, function() {
 	levelIndex++;
 	levelIndex %= levels.length;
-	session.loadLevel( levelDir + "/" + levels[levelIndex] + ".json");
+	session.loadLevel( levelDir + levelPrefix + levels[levelIndex] + ".json");
 });
 
-var againButton = new Button( IMAGE.againButton, 180, 130, 117, 99, function() {
-	session.loadLevel( levelDir + "/" + levels[levelIndex] + ".json");	
+var againButton = new Button( "again", 190, 100, 100, 50, function() {
+	session.loadLevel( levelDir + levelPrefix + levels[levelIndex] + ".json");	
 });
 
 var banner = {

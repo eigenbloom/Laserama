@@ -79,6 +79,7 @@ Player.prototype.update = function( level ) {
 	if ( this.state == this.STATE.grab ) {
 
 	}
+<<<<<<< HEAD
 
 	this.animationRunner.update( this.posX, this.posY, false, false );
 }
@@ -94,4 +95,12 @@ Player.prototype.draw = function( context ) {
 	context.restore();
 
 	this.animationRunner.draw( context );
+=======
+	
+	this.animationRunner.update(this.posX, this.posY + this.posZ, 0, 0);
+}
+
+Player.prototype.draw = function( context ) {
+		this.animationRunner.draw(context);
+>>>>>>> a5a01fe6c296dc7321a61bdc51aa5330826b4dff
 }
