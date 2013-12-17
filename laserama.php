@@ -3,7 +3,7 @@
 	<style type="text/css">
 		@font-face {
 		    font-family: "Disco";
-		    src: url("Disco3.ttf") format("truetype");
+		    src: url("DISKOTEQUE.TTF") format("truetype");
 		}
 	</style>
 	<head>
@@ -38,5 +38,6 @@
 		<div id="center" align="center">
 			<canvas id="screen" width="480" height="240">
 		</div>
+					<canvas id="images" width="480" height="240">
 	</body>
 </html>

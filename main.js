@@ -93,26 +93,55 @@ var session = {
 	},
 }
 
-var nextImg = new RegularImage( "img/next.png" );
-var againImg = new RegularImage( "img/again.png" );
+var startButton = new Button( IMAGE.nextButton, 180, 130, 117, 99, function() {
+	session.loadLevel( levelDir + "/" + levels[0] + ".json");	
+});
 
-var nextButton = new Button( "next", 190, 100, 100, 50, function() {
+var nextButton = new Button( IMAGE.nextButton, 180, 130, 117, 99, function() {
 	levelIndex++;
 	levelIndex %= levels.length;
 	session.loadLevel( levelDir + "/" + levels[levelIndex] + ".json");
 });
 
-var againButton = new Button( "again", 190, 100, 100, 50, function() {
+var againButton = new Button( IMAGE.againButton, 180, 130, 117, 99, function() {
 	session.loadLevel( levelDir + "/" + levels[levelIndex] + ".json");	
 });
 
+var banner = {
+	font: "72pt Disco",
+}
+
+var drawBanner = function( text ) {
+	context.fillStyle = "white";
+	context.textAlign = "center";
+	context.font = banner.font;
+	context.fillText( text, canvas.width / 2, canvas.height / 2 );
+}
 
 // Main game loop
 function update() {
+
+	/*imageCanvas = document.getElementById( "images" );
+	imageContext = imageCanvas.getContext( "2d" );	
+
+	imageContext.fillStyle = "orange";
+	imageContext.fillRect( 0, 0, imageCanvas.width, imageCanvas.height );
+
+	var h = 0;
+
+	for ( i in allimages ) {
+
+		imageContext.drawImage( allimages[i], 0, h, allimages[i].width, allimages[i].height );
+
+		h += allimages[i].height;
+
+		if ( h > imageCanvas.height ) imageCanvas.height *= 2;
+	}*/
+
 	// Logic
 	switch ( session.screen ) {
 		case SCREENS.title:
-			session.loadLevel( levelDir + levelPrefix + levels[levelIndex] + ".json");	
+			startButton.update();
 			break;
 		case SCREENS.loading:
 		
@@ -163,25 +192,29 @@ function update() {
 
 	switch ( session.screen ) {
 		case SCREENS.title:
-		
+			grayOverlay();
+			drawBanner( "laserama" );
+			startButton.draw( context );
 			break;
 		case SCREENS.loading:
 		
 			break;
 		case SCREENS.level:
 			level.drawForeground( context, session.scrollbox, 0 );
-			session.em.draw( context );		
+			session.em.draw( context );
 			break;
 		case SCREENS.win:
 			level.drawForeground( context, session.scrollbox, 0 );
 			session.em.draw( context );				
 			grayOverlay();
+			drawBanner( "groovy!" );			
 			nextButton.draw( context );
 			break;
 		case SCREENS.lose:
 			level.drawForeground( context, session.scrollbox, 0 );
 			session.em.draw( context );				
 			grayOverlay();
+			drawBanner( "square..." );			
 			againButton.draw( context );
 			break;			
 	}
@@ -192,7 +225,7 @@ function update() {
 
 function grayOverlay() {
 	context.globalAlpha = 0.5;
-	context.fillStyle = "black";
+	context.fillStyle = "gray";
 	context.fillRect( 0, 0, canvas.width, canvas.height );
 	context.globalAlpha = 1.0;
 }
