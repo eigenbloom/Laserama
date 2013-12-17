@@ -1,10 +1,10 @@
-var Button = function( text, posX, posY, width, height, onClick ) {
-	this.text = text;
+var Button = function( img, posX, posY, width, height, onRelease ) {
+	this.img = img;
 	this.posX = posX;
 	this.posY = posY;
 	this.width = width;
 	this.height = height;
-	this.onClick = onClick;
+	this.onRelease = onRelease;
 
 	this.hover = false;
 	this.clicked = false;
@@ -18,8 +18,8 @@ Button.prototype.update = function() {
 		if ( mouse.pos.y >= this.posY && mouse.pos.y <= this.posY + this.height ) {
 			this.hover = true;
 
-			if ( mouseHit() ) this.onClick();
 			if ( mouseHeld() ) this.clicked = true;
+			if ( mouseLetGo() ) this.onRelease();
 		}
 	}
 }
@@ -28,18 +28,23 @@ Button.prototype.draw = function( context ) {
 	context.fillStyle = "black";
 	context.save();
 
-	if ( this.hover && !this.clicked ) context.translate( -5, -5 );
+	this.img.draw( context, this.posX, this.posY, 1.0 );
 
-	context.fillRect( this.posX, this.posY, this.width, this.height );
+	if ( this.hover && !this.clicked ) context.translate( -3, -3 );
 
-	context.font = "18pt Disco"
-	context.textAlign = "center";
-	context.textBaseline = "top";
+	//context.fillRect( this.posX, this.posY, this.width, this.height );
 
-	context.fillStyle = "white";
-	context.fillText( this.text, this.posX + this.width / 2, this.posY )
+	//context.font = "18pt Disco"
+	//context.textAlign = "center";
+	//context.textBaseline = "top";
 
-	//this.text.draw( context, this.posX, this.posY, 2.0 );
+	//context.fillStyle = "white";
+	//context.fillText( this.text, this.posX + this.width / 2, this.posY )
+
+	this.img.draw( context, this.posX, this.posY, 1.0 );
 
 	context.restore();
+
+	this.hover = false;
+	this.clicked = false;	
 }

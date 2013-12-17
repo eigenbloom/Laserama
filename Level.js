@@ -61,7 +61,7 @@ var lrLevel = function() {
 }
 
 lrLevel.prototype = new Level();
-lrLevel.prototype.constructor = lrLevel();
+lrLevel.prototype.constructor = lrLevel;
 
 ///////////////////////
 // LOADFROMTILEDJSON // Load a tilemap made with the map editor program Tiled
@@ -174,7 +174,7 @@ lrLevel.prototype.loadFromTiledJSON = function( levelFilename, callback ) {
 					for (i in level.drawLayers) {
 						layer = level.drawLayers[i];
 						layer.map( function( r, c, val ) {
-							var newVal = val - tileset.firstgid + 1;
+							var newVal = val - tileset.firstgid;
 							if ( newVal < 0 ) newVal = 0;
 						
 							layer.set( r, c, newVal );

@@ -26,7 +26,7 @@ Grabber.prototype.hitWith = function( otherEntity ) {
 Grabber.prototype.grab = function() {
 	this.objects = this.inRange;
 
-	//for ( o in this.objects ) {
+	//for ( var o in this.objects ) {
 	//	this.objects.removeThis = true;
 	//}
 

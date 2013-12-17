@@ -3,8 +3,8 @@ var gravity = 0.5;
 var Player = function( params ) {
 	Entity.call( this );
 
-	this.width = 20;
-	this.height = 20;
+	this.width = 16;
+	this.height = 16;
 
 	this.velZ = 0.0;
 	this.posZ = 0.0;
@@ -79,6 +79,8 @@ Player.prototype.update = function( level ) {
 	if ( this.state == this.STATE.grab ) {
 
 	}
+
+	this.animationRunner.update( this.posX, this.posY, false, false );
 }
 
 Player.prototype.draw = function( context ) {
@@ -91,9 +93,5 @@ Player.prototype.draw = function( context ) {
 	this.drawCollisionBox( context );
 	context.restore();
 
-	this.animationRunner.update(this.posX, this.posY, 0, 0);
-}
-
-Player.prototype.draw = function( context ) {	
-	this.animationRunner.draw(context);
+	this.animationRunner.draw( context );
 }

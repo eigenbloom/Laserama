@@ -17,6 +17,9 @@ var IMAGE = {
 	
 	// Effects
 	explosion: new AnimatedImage( "./img/explosion.png", 20, 20, 0, 0),
+
+	nextButton: new RegularImage( "img/next.png" ),
+	againButton: new RegularImage( "img/again.png" ),	
 };
 
 var ANIM = {
