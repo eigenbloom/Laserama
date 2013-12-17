@@ -8,12 +8,15 @@ var Laser = function( params ) {
 	this.decayRate = -0.1;
 	this.decay = false;
 
-	this.width = 2;
+	this.width = 1;
 
 	this.shape = SHAPE.line;
 	this.color = "red";
 
 	this.setValues( params );
+
+	this.mainRunner = new AnimationRunner( 0, 0, false, false );
+	this.mainRunner.setLoopingAnim( ANIM.blueLaserSpin );
 }
 
 Laser.prototype = new Entity();
@@ -29,14 +32,33 @@ Laser.prototype.update = function() {
 		this.growRate += this.decayRate;
 		if ( this.width <= 0 ) this.removeThis = true;
 	}
+
+	this.mainRunner.update( 0, 0, false, false );
 }
 
 Laser.prototype.draw = function( context ) {
 	context.lineWidth = this.width;
 	context.strokeStyle = this.color;
 
-	context.beginPath();
-	context.moveTo( this.p1.x, this.p1.y );
-	context.lineTo( this.p2.x, this.p2.y );
-	context.stroke();	
+	var las = this;
+
+	var line = function() {
+		context.beginPath();
+		context.moveTo( las.p1.x, las.p1.y );
+		context.lineTo( las.p2.x, las.p2.y );
+		context.stroke();	
+	}
+
+	context.globalAlpha = 0.1;
+	context.lineWidth = this.width * 8;
+	line();
+	context.globalAlpha = 0.4;
+	context.lineWidth = this.width * 4;
+	line();
+	context.globalAlpha = 0.75;
+	context.lineWidth = this.width * 2;
+	line();
+	context.globalAlpha = 1.0;
+	context.lineWidth = this.width;
+	line();
 }

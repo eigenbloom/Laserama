@@ -15,6 +15,9 @@ var IMAGE = {
 	playerForwardStill: new AnimatedImage( "./img/playerForwardStill.png", 20, 20, 0, 0),
 	playerForwardWalk: new AnimatedImage( "./img/playerForwardWalk.png", 20, 20, 0, 0),
 	
+	// Blue Laser
+	blueLaser: new AnimatedImage( "./img/laser.png", 32, 16, 0, 0),
+
 	// Effects
 	explosion: new AnimatedImage( "./img/explosion.png", 20, 20, 0, 0),
 
@@ -30,6 +33,9 @@ var ANIM = {
 	// Player
 	playerForwardStill: new Animation( "Player forward still", IMAGE.playerForwardStill, [0], 2 ),
 	playerForwardWalk: new Animation( "Player forward walk", IMAGE.playerForwardWalk, [0, 1], 2 ),
+
+	// Blue Laser
+	blueLaserSpin: new Animation( "Laser animation", IMAGE.blueLaser, [7, 5, 3, 1], 1),
 	
 	// Enemies
 	turret: new Animation( "Turret", IMAGE.turret, [0], 1 ),

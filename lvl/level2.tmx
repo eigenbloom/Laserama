@@ -4,14 +4,14 @@
   <image source="collision.png" width="200" height="40"/>
  </tileset>
  <tileset firstgid="21" name="draw" tilewidth="20" tileheight="20">
-  <image source="draw.png" width="220" height="500"/>
+  <image source="draw.png" width="220" height="160"/>
  </tileset>
- <tileset firstgid="296" name="spawn" tilewidth="20" tileheight="20">
-  <image source="spawn.png" width="220" height="200"/>
+ <tileset firstgid="109" name="spawn" tilewidth="20" tileheight="20">
+  <image source="spawn.png" width="220" height="80"/>
  </tileset>
  <layer name="draw-bg" width="16" height="16">
   <data encoding="base64" compression="zlib">
-   eJyTZWBgkCMTywOxBhBrk4m1RvWP6h/VT5F+YyA2IRObAjEA1h4qiQ==
+   eJyTZWBgkCMTywOxBhBrk4m1RvWP6qejfjEglqFAv/4g9L8xEJuQiU2BGACy2ipp
   </data>
  </layer>
  <layer name="draw-fg" width="16" height="16">
@@ -21,12 +21,12 @@
  </layer>
  <layer name="collision" width="16" height="16" opacity="0.6">
   <data encoding="base64" compression="zlib">
-   eJxjYmBgYKIQkwtG9Y/qH9VPuX5KMAD08AB5
+   eJxjYmBgYKIQkwtG9Y/qp6d+dPXk6KfEfkLuIVc/JRgA+uAAfw==
   </data>
  </layer>
  <layer name="spawn" width="16" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFpAATxoF2AfHAawi5dagAzWEWpgBbyACr
+   eJxjYBgFpIDKgXYACaB/oB0wDEHeQDuAygAA4+oBdw==
   </data>
  </layer>
 </map>

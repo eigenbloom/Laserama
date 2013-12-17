@@ -28,18 +28,7 @@ Button.prototype.draw = function( context ) {
 	context.fillStyle = "black";
 	context.save();
 
-	this.img.draw( context, this.posX, this.posY, 1.0 );
-
 	if ( this.hover && !this.clicked ) context.translate( -3, -3 );
-
-	//context.fillRect( this.posX, this.posY, this.width, this.height );
-
-	//context.font = "18pt Disco"
-	//context.textAlign = "center";
-	//context.textBaseline = "top";
-
-	//context.fillStyle = "white";
-	//context.fillText( this.text, this.posX + this.width / 2, this.posY )
 
 	this.img.draw( context, this.posX, this.posY, 1.0 );
 

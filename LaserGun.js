@@ -11,6 +11,8 @@ var LaserGun = function( params ) {
 
 	this.points = [];
 
+	this.lasers = [];
+
 	this.setValues( params );
 }
 
@@ -22,7 +24,9 @@ LaserGun.prototype.hitWith = function( otherEntity ) {
 }
 
 LaserGun.prototype.update = function() {
-
+	for ( var l in this.lasers ) {
+		if ( this.lasers[l].removeThis ) this.lasers.splice( l, 1 );
+	}
 }
 
 LaserGun.prototype.propagate = function( points ) {
@@ -32,16 +36,22 @@ LaserGun.prototype.propagate = function( points ) {
 LaserGun.prototype.fire = function() {
 	// If the player has not picked up the battery yet, don't fire!
 	if ( !this.hasPower ) {
-		return;
+		return false;
 	}
+
+	SOUND.laser.play();
 	if ( this.points.length > 1 ) {
 		// Group the points by twos into vectors 
 		for ( var i = 0; i < this.points.length - 1; i++ ) {
-			this.spawnEntity( new Laser( { p1: this.points[i], p2: this.points[i + 1], decay: true } ) );
+			var l = new Laser( { p1: this.points[i], p2: this.points[i + 1], decay: true } );
+			this.lasers.push( l );
+			this.spawnEntity( l );
 		}
 	}
 	// Expend the battery juice (should have gone with Energizer)
 	this.hasPower = false;
+
+	return true;
 }
 
 LaserGun.prototype.draw = function( context ) {

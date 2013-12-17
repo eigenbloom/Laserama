@@ -7,9 +7,10 @@ var Turret = function( params ) {
 	this.collisionGroup = GROUP.enemy;
 
 	this.angle = 0.0;
-	this.rotateSpeed = 0.1;
+	this.rotateSpeed = 0.0;
 
 	this.hit = false;
+	this.speed = 3;
 
 	this.laser = new Laser( { color: "blue" } );
 	this.spawnEntity( this.laser );
@@ -29,11 +30,36 @@ Turret.prototype.hitWith = function( otherEntity ) {
 	}
 }
 
+Turret.prototype.onCollideLeft = function() {
+	this.velX *= -1;
+}
+
+Turret.prototype.onCollideRight = function() {
+	this.velX *= -1;
+}
+
+Turret.prototype.onCollideDown = function() {
+	this.velY *= -1;
+}
+
+Turret.prototype.onCollideUp = function() {
+	this.velY *= -1;
+}
+
 Turret.prototype.update = function( level ) {
+	this.posX += this.velX;
+	this.posY += this.velY;
+
+	//this.velX = this.faceDir.X * this.speed;
+	//this.velY = this.faceDir.Y * this.speed;
+
+	//if ( this.collideRight && this.velX || this.collideLeft ) this.turnAround();
+	//if ( this.collideUp || this.collideDown ) this.turnAround();
+
 	this.angle += this.rotateSpeed;
 
 	this.laser.p1.setValues( this.posX + this.width / 2, this.posY + this.height / 2 );
-	this.laser.p2.setValues( this.laser.p1.x + this.width / 2 + Math.cos( this.angle ) * 100, this.laser.p1.y + Math.sin( this.angle ) * 100 );
+	this.laser.p2.setValues( this.laser.p1.x + this.width / 2 + Math.cos( this.angle ) * 1000, this.laser.p1.y + Math.sin( this.angle ) * 1000 );
 
 	var line = new Line();
 	
@@ -42,11 +68,11 @@ Turret.prototype.update = function( level ) {
 
 	var points = level.bouncecast( line, 1 );
 
-	this.laser.p1.set( points[0] );
+	this.laser.p2.set( points[0] );
 	this.laser.p2.set( points[1] );
 	
 	this.animationRunner.update(this.posX, this.posY, 0, 0);
-	this.animationRunner.setRotation(this.angle);
+	this.animationRunner.setRotation(this.angle - Math.PI / 2);
 }
 
 Turret.prototype.draw = function( context ) {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="16" height="10" tilewidth="20" tileheight="20">
+<map version="1.0" orientation="orthogonal" width="12" height="12" tilewidth="20" tileheight="20">
  <tileset firstgid="1" name="collision" tilewidth="20" tileheight="20">
   <image source="collision.png" width="200" height="40"/>
  </tileset>
@@ -9,24 +9,24 @@
  <tileset firstgid="109" name="spawn" tilewidth="20" tileheight="20">
   <image source="spawn.png" width="220" height="80"/>
  </tileset>
- <layer name="draw-bg" width="16" height="10">
+ <layer name="draw-bg" width="12" height="12">
   <data encoding="base64" compression="zlib">
-   eJyTZWBgkCMTywOxBhBrA7EUEEuTgGWAWAtJPzl4VD/19CsAsQEJWAGq3xiIxcnEpkAMAOcfGDw=
+   eJyTZWBgkCOAlaC0PBArA7E2kVgLiDWQ+JIkqJcCYj0SzceHxUhUT6r5pKrXGSD3iCGxJbCoNwZiEyKxKRADAJMHF3w=
   </data>
  </layer>
- <layer name="draw-fg" width="16" height="10" visible="0">
+ <layer name="collision" width="12" height="12" opacity="0.71">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2DgAAACgAAB
+   eJxjYmBgYCIREwvQ1RPSi6yeGLtIcQ8+93MDMQ+aGB8e9SA5XixmUMs9hPRQoh7EB/mVG4ccqRgAz1wAyQ==
   </data>
  </layer>
- <layer name="collision" width="16" height="10" opacity="0.6">
+ <layer name="draw-fg" width="12" height="12" visible="0">
   <data encoding="base64" compression="zlib">
-   eJxjYmBgYKIQM1BBPzlgVD/19JNqDqVpBoYBtAAAfw==
+   eJxjYBgFsUAchyYWj0c9SC4BixlDBYD8Si33AgCsLgLy
   </data>
  </layer>
- <layer name="spawn" width="16" height="10" visible="0">
+ <layer name="spawn" width="12" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFeQNgZ+UA2EkM6CCRTSkAAOpfAwg=
+   eJxjYKAPyKNQ/0SquGJogAkDYGclmfoAL34CCQ==
   </data>
  </layer>
 </map>

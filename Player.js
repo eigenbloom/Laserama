@@ -3,11 +3,13 @@ var gravity = 0.5;
 var Player = function( params ) {
 	Entity.call( this );
 
-	this.width = 16;
-	this.height = 16;
+	this.width = 20;
+	this.height = 20;
 
 	this.velZ = 0.0;
 	this.posZ = 0.0;
+
+	this.speed = 6;
 
 	this.faceDir = DIR.down;
 
@@ -15,6 +17,8 @@ var Player = function( params ) {
 
 	this.gun = new LaserGun();
 	this.spawnEntity( this.gun );
+
+	this.hasFired = false;
 
 	this.setValues( params );
 
@@ -42,31 +46,40 @@ Player.prototype.hitWith = function( otherEntity ) {
 }
 
 Player.prototype.update = function( level ) {
+	this.posX += this.velX;
+	this.posY += this.velY;
+
 	this.posZ += this.velZ;
 	if ( this.posZ < 0.0 ) this.velZ += gravity;
 	else this.posZ = 0.0;
 
-	if ( keyHit( KEY.A ) ) {
+	this.velX = 0;
+	this.velY = 0;
+
+	if ( keyHeld( KEY.A ) ) {
 		this.faceDir = DIR.left;
-		if ( !this.collideLeft ) this.posX -= 16;
+		this.velX = -this.speed;
 	}
-	if ( keyHit( KEY.D ) ) {
+	if ( keyHeld( KEY.D ) ) {
 		this.faceDir = DIR.right;
-		if ( !this.collideRight ) this.posX += 16;
+		this.velX = this.speed;
 	}
-	if ( keyHit( KEY.W ) ) {
+	if ( keyHeld( KEY.W ) ) {
 		this.faceDir = DIR.up;
-		if ( !this.collideUp ) this.posY -= 16;
+		this.velY = -this.speed;
 	}
-	if ( keyHit( KEY.S ) ) {
+	if ( keyHeld( KEY.S ) ) {
 		this.faceDir = DIR.down;
-		if ( !this.collideDown ) this.posY += 16; 
+		this.velY = this.speed;
 	}
-	if ( keyHit( KEY.SPACE ) && this.posZ == 0 ) {
+	if ( keyHeld( KEY.SPACE ) && this.posZ == 0 ) {
+		SOUND.jump.play();
 		this.velZ = -3;
 	}
 
-	if ( mouseHit() ) this.gun.fire();
+	if ( mouseHit() ) {
+		if ( this.gun.fire() ) this.hasFired = true;
+	}
 
 	this.gun.p1.setValues( this.posX + this.width / 2, this.posY + this.height / 2 );
 	this.gun.p2.set( mouse.pos );
@@ -79,9 +92,8 @@ Player.prototype.update = function( level ) {
 	if ( this.state == this.STATE.grab ) {
 
 	}
-<<<<<<< HEAD
 
-	this.animationRunner.update( this.posX, this.posY, false, false );
+	this.animationRunner.update( this.posX, this.posY + this.posZ, false, false );
 }
 
 Player.prototype.draw = function( context ) {
@@ -89,18 +101,10 @@ Player.prototype.draw = function( context ) {
 	context.save();
 	context.translate( 0, this.posZ );
 
-	this.drawRect( context );
+	//this.drawRect( context );
 
-	this.drawCollisionBox( context );
+	//this.drawCollisionBox( context );
 	context.restore();
 
 	this.animationRunner.draw( context );
-=======
-	
-	this.animationRunner.update(this.posX, this.posY + this.posZ, 0, 0);
-}
-
-Player.prototype.draw = function( context ) {
-		this.animationRunner.draw(context);
->>>>>>> a5a01fe6c296dc7321a61bdc51aa5330826b4dff
 }

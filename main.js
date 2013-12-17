@@ -15,7 +15,7 @@ $(window).load( function() {
 
 var levelDir = "./lvl/";
 var levelPrefix = "level";
-var levels = ["1", "2", "3", "4", "5", "6", "7"];
+var levels = ["2", "1", "5", "6", "7", "8"];
 var levelIndex = 0;
 
 var SCREENS = {
@@ -24,6 +24,7 @@ var SCREENS = {
 	level: 2,
 	win: 3,
 	lose: 4,
+	done: 5,
 }
 
 var STATUS = { 
@@ -49,55 +50,54 @@ var session = {
 			session.em = new EntityManager();
 
 			session.em.addSpawn( 1, function( x, y ) {
-				return new Player( { posX: x, posY: y } );
-			});
+				return new Player( { posX: x, posY: y } ); });
 
 			// Non-rotating turret spawns
 			session.em.addSpawn( 9, function( x, y ) {
-				return new Turret( {posX: x, posY: y, angle: Math.PI / 2, rotateSpeed: 0} );
-			});
+				return new Turret( {posX: x, posY: y, angle: Math.PI / 2, rotateSpeed: 0} ); });
 			session.em.addSpawn( 10, function( x, y ) {
-				return new Turret( {posX: x, posY: y, angle: Math.PI, rotateSpeed: 0} );
-			});
+				return new Turret( {posX: x, posY: y, angle: Math.PI, rotateSpeed: 0} ); });
 			session.em.addSpawn( 20, function( x, y ) {
-				return new Turret( {posX: x, posY: y, angle: 3* Math.PI / 2, rotateSpeed: 0} );
-			});
+				return new Turret( {posX: x, posY: y, angle: 3* Math.PI / 2, rotateSpeed: 0} ); });
 			session.em.addSpawn( 21, function( x, y ) {
-				return new Turret( {posX: x, posY: y, angle: 0, rotateSpeed: 0} );
-			});
+				return new Turret( {posX: x, posY: y, angle: 0, rotateSpeed: 0} ); });
 			
 			// Clockwise rotating turret spawns
 			session.em.addSpawn( 22, function( x, y ) {
-				return new Turret( {posX: x, posY: y, angle: Math.PI / 2, rotateSpeed: 0.1} );
-			});
+				return new Turret( {posX: x, posY: y, angle: Math.PI / 2, rotateSpeed: 0.1} ); });
 			session.em.addSpawn( 23, function( x, y ) {
-				return new Turret( {posX: x, posY: y, angle: Math.PI, rotateSpeed: 0.1} );
-			});
+				return new Turret( {posX: x, posY: y, angle: Math.PI, rotateSpeed: 0.1} ); });
 			session.em.addSpawn( 33, function( x, y ) {
-				return new Turret( {posX: x, posY: y, angle: 3* Math.PI / 2, rotateSpeed: 0.1} );
-			});
+				return new Turret( {posX: x, posY: y, angle: 3* Math.PI / 2, rotateSpeed: 0.1} ); });
 			session.em.addSpawn( 34, function( x, y ) {
-				return new Turret( {posX: x, posY: y, angle: 0, rotateSpeed: 0.1} );
-			});
+				return new Turret( {posX: x, posY: y, angle: 0, rotateSpeed: 0.1} ); });
 			
 			// Counterclockwise rotating turret spawns
 			session.em.addSpawn( 24, function( x, y ) {
-				return new Turret( {posX: x, posY: y, angle: Math.PI / 2, rotateSpeed: -0.1} );
-			});
+				return new Turret( {posX: x, posY: y, angle: Math.PI / 2, rotateSpeed: -0.1} ); });
 			session.em.addSpawn( 25, function( x, y ) {
-				return new Turret( {posX: x, posY: y, angle: Math.PI, rotateSpeed: -0.1} );
-			});
+				return new Turret( {posX: x, posY: y, angle: Math.PI, rotateSpeed: -0.1} ); });
 			session.em.addSpawn( 35, function( x, y ) {
-				return new Turret( {posX: x, posY: y, angle: 3* Math.PI / 2, rotateSpeed: -0.1} );
-			});
+				return new Turret( {posX: x, posY: y, angle: 3* Math.PI / 2, rotateSpeed: -0.1} ); });
 			session.em.addSpawn( 36, function( x, y ) {
-				return new Turret( {posX: x, posY: y, angle: 0, rotateSpeed: -0.1} );
-			});
+				return new Turret( {posX: x, posY: y, angle: 0, rotateSpeed: -0.1} ); });
+
+			// Left Strafe
+			session.em.addSpawn( 27, function( x, y ) {
+				return new Turret( {posX: x, posY: y, angle: -Math.PI / 2, velX: -2 } ); });
+			// Right Strafe
+			session.em.addSpawn( 38, function( x, y ) {
+				return new Turret( {posX: x, posY: y, angle: -Math.PI / 2, velX: 2} ); });		
+			// Up Strafe
+			session.em.addSpawn( 37, function( x, y ) {
+				return new Turret( {posX: x, posY: y, angle: 0, velY: -2 } ); });
+			// Down Strafe
+			session.em.addSpawn( 26, function( x, y ) {
+				return new Turret( {posX: x, posY: y, angle: 0, velY: 2 } ); });			
 			
 			// Battery spawn
 			session.em.addSpawn( 12, function( x, y) {
-				return new Battery( {posX: x, posY: y} );
-			});
+				return new Battery( {posX: x, posY: y} ); });
 
 			session.scrollbox = new ScrollBox( { 
 				hTiles: session.level.width, vTiles: session.level.height,
@@ -130,31 +130,61 @@ var session = {
 
 		return false;
 	},
+
+	playerFired: function() {
+		if ( session.em === undefined || session.em == null ) return false;
+
+		for ( e in session.em.entities ) {
+			if ( session.em.entities[e] instanceof Player ) {
+				return ( session.em.entities[e].hasFired && session.em.entities[e].gun.lasers.length == 0 )
+			}
+		}
+
+		return false;
+	},	
 }
 
-var startButton = new Button( IMAGE.nextButton, 180, 130, 117, 99, function() {
-	session.loadLevel( levelDir + "/" + levels[0] + ".json");	
+var startButton = new Button( IMAGE.nextButton, 180, 300, 117, 99, function() {
+	session.loadLevel( levelDir + levelPrefix + levels[0] + ".json");	
+	SOUND.song.loop();
 });
 
-var nextButton = new Button( IMAGE.nextButton, 180, 130, 117, 99, function() {
+var nextButton = new Button( IMAGE.nextButton, 180, 300, 117, 99, function() {
 	levelIndex++;
-	levelIndex %= levels.length;
-	session.loadLevel( levelDir + levelPrefix + levels[levelIndex] + ".json");
+
+	if ( levelIndex >= levels.length ) {
+		session.screen = SCREENS.done;
+		SOUND.song.pause();
+		levelIndex %= levels.length;
+	} else session.loadLevel( levelDir + levelPrefix + levels[levelIndex] + ".json");
 });
 
-var againButton = new Button( "again", 190, 100, 100, 50, function() {
+var againButton = new Button( IMAGE.againButton, 180, 300, 117, 99, function() {
 	session.loadLevel( levelDir + levelPrefix + levels[levelIndex] + ".json");	
 });
 
-var banner = {
-	font: "72pt Disco",
+var finishButton = new Button( IMAGE.againButton, 180, 300, 117, 99, function() {
+	session.screen = SCREENS.title;	
+}); 
+
+var winMessages = [ "Groovy!", "Far Out!", "Ace!", "Dig it!" ];
+var loseMessages = [ "Wasted!", "Not Cool!", "Ouch!", "Denied!" ];
+var missMessages = [ "Miffed!", "Dang!", "Nope!" ];
+
+var randomElement = function( array ) {
+	return array[ Math.floor( Math.random() * array.length ) ];
 }
 
-var drawBanner = function( text ) {
+var banner = {
+	font: "72pt Disco",
+	text: "",
+}
+
+var drawBanner = function() {
 	context.fillStyle = "white";
 	context.textAlign = "center";
 	context.font = banner.font;
-	context.fillText( text, canvas.width / 2, canvas.height / 2 );
+	context.fillText( banner.text, canvas.width / 2, canvas.height / 2 );
 }
 
 // Main game loop
@@ -180,6 +210,7 @@ function update() {
 	// Logic
 	switch ( session.screen ) {
 		case SCREENS.title:
+			banner.text = "laserama";
 			startButton.update();
 			break;
 		case SCREENS.loading:
@@ -195,13 +226,19 @@ function update() {
 			switch ( session.levelState ) {
 				case STATUS.inprogress:
 					if ( !session.playerAlive() ) {
+						SOUND.die.play();
 						session.levelState = STATUS.lost;
+						banner.text = randomElement( loseMessages );
 						session.timer = 20;
-					}
-					if ( session.enemiesDead() ) {
+					} else if ( session.enemiesDead() ) {
 						session.levelState = STATUS.won;
+						banner.text = randomElement( winMessages );
 						session.timer = 20;
-					} 
+					} else if ( session.playerAlive() && session.playerFired() ) {
+						session.levelState = STATUS.lost;
+						banner.text = randomElement( missMessages );
+						session.timer = 20;
+					}					
 					break;
 				case STATUS.won:
 					session.timer--;
@@ -223,16 +260,19 @@ function update() {
 		case SCREENS.lose:
 			againButton.update();
 			break;
+		case SCREENS.done:
+			banner.text = "You Win!";
+			finishButton.update();
 	}
 
 	// Drawing
-	context.fillStyle = "white";
+	context.fillStyle = "black";
 	context.fillRect( 0, 0, canvas.width, canvas.height );
 
 	switch ( session.screen ) {
 		case SCREENS.title:
 			grayOverlay();
-			drawBanner( "laserama" );
+			drawBanner();
 			startButton.draw( context );
 			break;
 		case SCREENS.loading:
@@ -246,16 +286,20 @@ function update() {
 			level.drawForeground( context, session.scrollbox, 0 );
 			session.em.draw( context );				
 			grayOverlay();
-			drawBanner( "groovy!" );			
+			drawBanner();			
 			nextButton.draw( context );
 			break;
 		case SCREENS.lose:
 			level.drawForeground( context, session.scrollbox, 0 );
 			session.em.draw( context );				
 			grayOverlay();
-			drawBanner( "square..." );			
+			drawBanner();			
 			againButton.draw( context );
 			break;			
+		case SCREENS.done:
+			grayOverlay();
+			drawBanner();
+			finishButton.draw( context );
 	}
 
 	mouseStateUpdater( canvas );

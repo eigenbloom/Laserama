@@ -5,6 +5,12 @@
 		    font-family: "Disco";
 		    src: url("DISKOTEQUE.TTF") format("truetype");
 		}
+
+		body {
+			background: black;
+			font: 20pt Disco;
+			color: white;
+		}
 	</style>
 	<head>
 		<script type="text/javascript" src="../juego.js/jquery-1.10.2.min.js"></script>
@@ -22,9 +28,11 @@
 		<script type="text/javascript" src="../juego.js/Ray.js"></script>
 		<script type="text/javascript" src="../juego.js/mouse.js"></script>
 		<script type="text/javascript" src="../juego.js/Level.js"></script>
-		<script type="text/javascript" src="../juego.js/util.js"></script>		
+		<script type="text/javascript" src="../juego.js/util.js"></script>
+		<script type="text/javascript" src="../juego.js/Sound.js"></script>
 
 		<script type="text/javascript" src="images.js"></script>
+		<script type="text/javascript" src="sounds.js"></script>		
 		<script type="text/javascript" src="Level.js"></script>
 		<script type="text/javascript" src="EntityManager.js"></script>
 		<script type="text/javascript" src="Laser.js"></script>
@@ -39,6 +47,13 @@
 		<div id="center" align="center">
 			<canvas id="screen" width="480" height="480">
 		</div>
-					<canvas id="images" width="480" height="240">
+		<div align="center">
+		Multiple targets, you only get one shot!<br/>
+		</div>
+		<div align="center" style="font-size:18pt">
+		WASD/Move Spacebar/Jump Mouse/Aim Left Button/Fire<br />
+
+		You need to get the battery before you can fire.<br/>
+		</div>
 	</body>
 </html>

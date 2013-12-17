@@ -273,12 +273,12 @@ lrLevel.prototype.collide = function( entity ) {
 	}		
 }	
 
-var rect = new Shape().Rectangle( 0, 0, 16, 16 );
+var rect = new Shape().Rectangle( 0, 0, 20, 20 );
 
 var a = new Vec2( 0, 0 );
-var b = new Vec2( 16, 0 );
-var c = new Vec2( 16, 16 );
-var d = new Vec2( 0, 16 );
+var b = new Vec2( 20, 0 );
+var c = new Vec2( 20, 20 );
+var d = new Vec2( 0, 20 );
 /*
 var t = new Line( a, b );
 var r = new Line( b, c );
@@ -301,7 +301,12 @@ tri2.lines[0].material = 1;
 tri3.lines[1].material = 1;
 tri4.lines[2].material = 1;
 
-var colShapes = [ new Shape(), rect, tri1, tri2, tri3, tri4 ];
+var colShapes = [ new Shape(), rect]
+colShapes[10] = tri1;
+colShapes[11] = tri2;
+colShapes[12] = tri3;
+colShapes[13] = tri4;
+
 
 lrLevel.prototype.raycast = function( line ) {
 	// Start of the ray is point 1, end is point 2
@@ -463,12 +468,14 @@ lrLevel.prototype.drawForeground = function( context, scrollBox, layer ) {
 		drawLayer( this.drawLayers[l], level.image, drawImage );
 	}
 	
-	drawLayer( this.collisionLayer, this.collisionImage, drawImage );
-	drawLayer( this.spawnLayer, this.spawnImage, drawImage );	
+	if ( LOG_COLLISION ) {
+		drawLayer( this.collisionLayer, this.collisionImage, drawImage );
+		drawLayer( this.spawnLayer, this.spawnImage, drawImage );	
 
-	context.strokeStyle = "red";
+		context.strokeStyle = "red";
 
-	for ( s in this.shapes ) {
-		this.shapes[s].materialDraw( context );
+		for ( s in this.shapes ) {
+			this.shapes[s].materialDraw( context );
+		}
 	}
 }
