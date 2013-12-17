@@ -6,8 +6,12 @@ var Player = function( params ) {
 	this.width = 16;
 	this.height = 16;
 
+	this.velX = 0.0;
+	this.velY = 0.0;
 	this.velZ = 0.0;
 	this.posZ = 0.0;
+	
+	this.speed = 4.0;
 
 	this.faceDir = DIR.down;
 
@@ -46,21 +50,24 @@ Player.prototype.update = function( level ) {
 	if ( this.posZ < 0.0 ) this.velZ += gravity;
 	else this.posZ = 0.0;
 
-	if ( keyHit( KEY.A ) ) {
+	this.velX = 0;
+	this.velY = 0;
+	
+	if ( keyHeld( KEY.A ) ) {
 		this.faceDir = DIR.left;
-		if ( !this.collideLeft ) this.posX -= 16;
+		this.velX = -this.speed;
 	}
-	if ( keyHit( KEY.D ) ) {
+	if ( keyHeld( KEY.D ) ) {
 		this.faceDir = DIR.right;
-		if ( !this.collideRight ) this.posX += 16;
+		this.velX = this.speed;
 	}
-	if ( keyHit( KEY.W ) ) {
+	if ( keyHeld( KEY.W ) ) {
 		this.faceDir = DIR.up;
-		if ( !this.collideUp ) this.posY -= 16;
+		this.velY = -this.speed;
 	}
-	if ( keyHit( KEY.S ) ) {
+	if ( keyHeld( KEY.S ) ) {
 		this.faceDir = DIR.down;
-		if ( !this.collideDown ) this.posY += 16; 
+		this.velY = this.speed;
 	}
 	if ( keyHit( KEY.SPACE ) && this.posZ == 0 ) {
 		this.velZ = -3;
@@ -79,6 +86,14 @@ Player.prototype.update = function( level ) {
 	if ( this.state == this.STATE.grab ) {
 
 	}
+	
+	if ( this.collideLeft && this.velX < 0 ) this.velX = 0;
+	if ( this.collideRight && this.velX > 0 ) this.velX = 0;
+	if ( this.collideUp && this.velY < 0 ) this.velY = 0;
+	if ( this.collideDown && this.velY > 0 ) this.velY = 0;
+	
+	this.posX += this.velX;
+	this.posY += this.velY;
 	
 	this.animationRunner.update(this.posX, this.posY + this.posZ, 0, 0);
 }
