@@ -40,6 +40,8 @@ LaserGun.prototype.fire = function() {
 			this.spawnEntity( new Laser( { p1: this.points[i], p2: this.points[i + 1], decay: true } ) );
 		}
 	}
+	// Expend the battery juice (should have gone with Energizer)
+	this.hasPower = false;
 }
 
 LaserGun.prototype.draw = function( context ) {

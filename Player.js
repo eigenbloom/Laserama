@@ -79,21 +79,10 @@ Player.prototype.update = function( level ) {
 	if ( this.state == this.STATE.grab ) {
 
 	}
+	
+	this.animationRunner.update(this.posX, this.posY + this.posZ, 0, 0);
 }
 
 Player.prototype.draw = function( context ) {
-	context.fillStyle = "green";
-	context.save();
-	context.translate( 0, this.posZ );
-
-	this.drawRect( context );
-
-	this.drawCollisionBox( context );
-	context.restore();
-
-	this.animationRunner.update(this.posX, this.posY, 0, 0);
-}
-
-Player.prototype.draw = function( context ) {	
-	this.animationRunner.draw(context);
+		this.animationRunner.draw(context);
 }
