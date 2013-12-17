@@ -11,9 +11,8 @@ var Player = function( params ) {
 	this.velZ = 0.0;
 	this.posZ = 0.0;
 	
-	this.speed = 4.0;
-
 	this.speed = 6;
+
 
 	this.faceDir = DIR.down;
 
