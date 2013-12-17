@@ -4,10 +4,10 @@
   <image source="collision.png" width="200" height="40"/>
  </tileset>
  <tileset firstgid="21" name="draw" tilewidth="20" tileheight="20">
-  <image source="draw.png" width="220" height="500"/>
+  <image source="draw.png" width="220" height="160"/>
  </tileset>
- <tileset firstgid="296" name="spawn" tilewidth="20" tileheight="20">
-  <image source="spawn.png" width="220" height="200"/>
+ <tileset firstgid="109" name="spawn" tilewidth="20" tileheight="20">
+  <image source="spawn.png" width="220" height="80"/>
  </tileset>
  <layer name="draw-bg" width="20" height="12" visible="0">
   <data encoding="base64" compression="zlib">
@@ -26,7 +26,7 @@
  </layer>
  <layer name="spawn" width="20" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYKAtMGQkzB4uwGCQ+kmTDHeZDFK/jAJUAAAVMwEn
+   eJxjYKAtKCOCPVxA6UA7AAfII0NPJdVdMQpoAQBSRQK/
   </data>
  </layer>
 </map>
