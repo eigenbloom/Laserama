@@ -1,3 +1,5 @@
+define( ["juego/Entity", "Laser"], function( Entity, Laser ) {
+
 var LaserGun = function( params ) {
 	Entity.call( this );
 
@@ -75,3 +77,7 @@ LaserGun.prototype.draw = function( context ) {
 		context.stroke();
 	}
 }
+
+return LaserGun;
+
+});

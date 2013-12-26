@@ -1,3 +1,5 @@
+define( ["juego/Entity", "juego/AnimationRunner", "ANIM"], function( Entity, AnimationRunner, ANIM ) {
+
 var Laser = function( params ) {
 	Entity.call( this );
 
@@ -10,7 +12,7 @@ var Laser = function( params ) {
 
 	this.width = 1;
 
-	this.shape = SHAPE.line;
+	this.shape = Entity.SHAPE.line;
 	this.color = "red";
 
 	this.setValues( params );
@@ -62,3 +64,7 @@ Laser.prototype.draw = function( context ) {
 	context.lineWidth = this.width;
 	line();
 }
+
+return Laser;
+
+});

@@ -1,6 +1,6 @@
-///////////
-// LEVEL //
-///////////
+////////////////
+// LRLEVEL.JS //
+////////////////
 
 /*
 	Class that holds and maintains all of the data used for a level.
@@ -34,6 +34,16 @@
 			draw
 				call once per cycle 
 */
+
+define( ["juego/Level", 
+		 "juego/Shape", 
+		 "juego/TileArray", 
+		 "juego/Entity",
+		 "juego/Line",
+		 "juego/AnimatedImage",
+		 "juego/Region"], 
+
+function( Level, Shape, TileArray, Entity, Line, AnimatedImage, Region ) {
 
 var LEVEL_DIR = "./lvl/";
 
@@ -468,7 +478,7 @@ lrLevel.prototype.drawForeground = function( context, scrollBox, layer ) {
 		drawLayer( this.drawLayers[l], level.image, drawImage );
 	}
 	
-	if ( LOG_COLLISION ) {
+	if ( false ) {
 		drawLayer( this.collisionLayer, this.collisionImage, drawImage );
 		drawLayer( this.spawnLayer, this.spawnImage, drawImage );	
 
@@ -479,3 +489,7 @@ lrLevel.prototype.drawForeground = function( context, scrollBox, layer ) {
 		}
 	}
 }
+
+return lrLevel;
+
+});

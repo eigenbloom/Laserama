@@ -1,10 +1,10 @@
+define( ["juego/Entity", "IMAGE"], function( Entity, IMAGE ) {
+
 var Battery = function( params ) {
 	Entity.call( this );
 
 	this.width = 12;
 	this.height = 20;
-
-	this.collisionGroup = GROUP.none;
 
 	this.setValues( params );
 }
@@ -20,3 +20,7 @@ Battery.prototype.update = function( level ) {
 Battery.prototype.draw = function( context ) {
 	IMAGE.battery.draw(context, this.posX, this.posY, 1);
 }
+
+return Battery;
+
+});

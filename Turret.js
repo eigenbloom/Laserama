@@ -1,10 +1,12 @@
+define( ["juego/Entity", "juego/AnimationRunner", "juego/Line", "Laser", "ANIM", "IMAGE"], function( Entity, AnimationRunner, Line, Laser, ANIM, IMAGE ) {
+
 var Turret = function( params ) {
 	Entity.call( this );
 
 	this.width = 20;
 	this.height = 20;
 
-	this.collisionGroup = GROUP.enemy;
+	this.collisionGroup = Entity.GROUP.enemy;
 
 	this.angle = 0.0;
 	this.rotateSpeed = 0.0;
@@ -79,3 +81,7 @@ Turret.prototype.draw = function( context ) {
 	IMAGE.turretBase.draw(context, this.posX, this.posY, 1);
 	this.animationRunner.draw(context);
 }
+
+return Turret;
+
+});

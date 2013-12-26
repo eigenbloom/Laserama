@@ -1,3 +1,5 @@
+define( ["juego/mouse"], function( mouse ) {
+
 var Button = function( img, posX, posY, width, height, onRelease ) {
 	this.img = img;
 	this.posX = posX;
@@ -18,8 +20,8 @@ Button.prototype.update = function() {
 		if ( mouse.pos.y >= this.posY && mouse.pos.y <= this.posY + this.height ) {
 			this.hover = true;
 
-			if ( mouseHeld() ) this.clicked = true;
-			if ( mouseLetGo() ) this.onRelease();
+			if ( mouse.held() ) this.clicked = true;
+			if ( mouse.letGo() ) this.onRelease();
 		}
 	}
 }
@@ -37,3 +39,7 @@ Button.prototype.draw = function( context ) {
 	this.hover = false;
 	this.clicked = false;	
 }
+
+return Button;
+
+});

@@ -1,3 +1,6 @@
+define( ["juego/Entity", "juego/AnimationRunner", "Laser", "LaserGun", "Battery", "ANIM", "juego/keyboard", "juego/mouse"], 
+function( Entity, AnimationRunner, Laser, LaserGun, Battery, ANIM, keyboard, mouse ) {
+
 var gravity = 0.5;
 
 var Player = function( params ) {
@@ -13,10 +16,9 @@ var Player = function( params ) {
 	
 	this.speed = 6;
 
+	//this.faceDir = DIR.down;
 
-	this.faceDir = DIR.down;
-
-	this.collisionGroup = GROUP.player;
+	this.collisionGroup = Entity.GROUP.player;
 
 	this.gun = new LaserGun();
 	this.spawnEntity( this.gun );
@@ -59,42 +61,33 @@ Player.prototype.update = function( level ) {
 	this.velX = 0;
 	this.velY = 0;
 
-	if ( keyHeld( KEY.A ) ) {
-		this.faceDir = DIR.left;
+	if ( keyboard.keyHeld( keyboard.KEY.A ) ) {
+		//this.faceDir = DIR.left;
 		this.velX = -this.speed;
 	}
-	if ( keyHeld( KEY.D ) ) {
-		this.faceDir = DIR.right;
+	if ( keyboard.keyHeld( keyboard.KEY.D ) ) {
+		//this.faceDir = DIR.right;
 		this.velX = this.speed;
 	}
-	if ( keyHeld( KEY.W ) ) {
-		this.faceDir = DIR.up;
+	if ( keyboard.keyHeld( keyboard.KEY.W ) ) {
+		//this.faceDir = DIR.up;
 		this.velY = -this.speed;
 	}
-	if ( keyHeld( KEY.S ) ) {
-		this.faceDir = DIR.down;
+	if ( keyboard.keyHeld( keyboard.KEY.S ) ) {
+		//this.faceDir = DIR.down;
 		this.velY = this.speed;
 	}
-	if ( keyHeld( KEY.SPACE ) && this.posZ == 0 ) {
+	if ( keyboard.keyHeld( keyboard.KEY.SPACE ) && this.posZ == 0 ) {
 		SOUND.jump.play();
 		this.velZ = -3;
 	}
 
-	if ( mouseHit() ) {
+	if ( mouse.hit() ) {
 		if ( this.gun.fire() ) this.hasFired = true;
 	}
 
 	this.gun.p1.setValues( this.posX + this.width / 2, this.posY + this.height / 2 );
 	this.gun.p2.set( mouse.pos );
-
-	this.state = this.STATE.none;
-	if ( keyHeld( KEY.X ) ) {
-		this.state = this.STATE.grab;
-	}
-	
-	if ( this.state == this.STATE.grab ) {
-
-	}
 
 	this.animationRunner.update( this.posX, this.posY + this.posZ, false, false );
 }
@@ -111,3 +104,7 @@ Player.prototype.draw = function( context ) {
 
 	this.animationRunner.draw( context );
 }
+
+return Player;
+
+});

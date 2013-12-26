@@ -1,17 +1,45 @@
+require.config({
+    baseUrl: "",
+    paths: {
+        // the left side is the module ID,
+        // the right side is the path to
+        // the jQuery file, relative to baseUrl.
+        // Also, the path should NOT include
+        // the '.js' file extension. This example
+        // is using jQuery 1.9.0 located at
+        // js/lib/jquery-1.9.0.js, relative to
+        // the HTML page.
+        jquery: "../juego.js/jquery-1.10.2.min",
+        juego: "../juego.js",
+    }
+});
+
+require( ["jquery", 
+		  "Button", 
+		  "IMAGE", 
+		  "SOUND", 
+		  "EntityManager", 
+		  "juego/ScrollBox", 
+		  "lrLevel", 
+		  "Battery",
+		  "Turret",
+		  "Player",
+		  "juego/mouse", 
+		  "juego/keyboard"], 
+
+function( $, Button, IMAGE, SOUND, EntityManager, ScrollBox, lrLevel, Battery, Turret, Player, mouse, keyboard ) {
+
 var main;
 
 var canvas, context; // Drawing modules
 
-// Happens once everything is loaded
-$(window).load( function() {
-	canvas = document.getElementById( "screen" );
-	context = canvas.getContext( "2d" );
+canvas = document.getElementById( "screen" );
+context = canvas.getContext( "2d" );
 
-	context.font = '32pt Disco';
-	context.fillText( "", 0, 0 );
+context.font = '32pt Disco';
+context.fillText( "", 0, 0 );
 
-	setInterval( update, 60 );
-} );
+setInterval( update, 60 );
 
 var levelDir = "./lvl/";
 var levelPrefix = "level";
@@ -146,7 +174,7 @@ var session = {
 
 var startButton = new Button( IMAGE.nextButton, 180, 300, 117, 99, function() {
 	session.loadLevel( levelDir + levelPrefix + levels[0] + ".json");	
-	SOUND.song.loop();
+	//SOUND.song.loop();
 });
 
 var nextButton = new Button( IMAGE.nextButton, 180, 300, 117, 99, function() {
@@ -302,8 +330,8 @@ function update() {
 			finishButton.draw( context );
 	}
 
-	mouseStateUpdater( canvas );
-	keyboardStateUpdater();
+	mouse.updateState( canvas );
+	keyboard.updateState();
 }
 
 function grayOverlay() {
@@ -312,3 +340,5 @@ function grayOverlay() {
 	context.fillRect( 0, 0, canvas.width, canvas.height );
 	context.globalAlpha = 1.0;
 }
+
+});

@@ -27,6 +27,9 @@
 			6. draw() - draw stuff last so the player sees the game as it is currently
 */
 
+define( [ "Laser", "juego/Region", "juego/Entity", "Player", "LaserGun", "juego/Line"], 
+function( Laser, Region, Entity, Player, LaserGun, Line ) {
+
 var EntityManager = function() {
 	this.lasers = [];
 	this.entities = [];	
@@ -176,10 +179,14 @@ EntityManager.prototype.draw = function(context, layer) {
 	this.doForAllEntities( function( entity ) {
 		//if ( !( entity instanceof Player ) ) 
 		entity.draw( context );
-		if (LOG_COLLISION) entity.drawCollisionBox( context );
+		if (Entity.LOG_COLLISION) entity.drawCollisionBox( context );
 	});	
 	this.doForAllEntities( function( entity ) {
 		if ( entity instanceof Player ) entity.draw( context );
-		if (LOG_COLLISION) entity.drawCollisionBox( context );
+		if (Entity.LOG_COLLISION) entity.drawCollisionBox( context );
 	});	
 }
+
+return EntityManager;
+
+});
